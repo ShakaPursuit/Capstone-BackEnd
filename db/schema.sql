@@ -20,15 +20,12 @@ CREATE TABLE interest (
 );
 CREATE TABLE goals (
     goal_id SERIAL PRIMARY KEY,
-    creater_user_id INTEGER,
-    partner_user_id INTEGER,
+    FOREIGN KEY (creater_user_id) REFERENCES user_profile(user_profile_id),
+    FOREIGN KEY (partner_user_id) REFERENCES user_profile(user_profile_id),
     goal_description VARCHAR(255),
     target_date DATE,
     creater_progress INTEGER,
-    partner_progress INTEGER,
-    interest_id INTEGER,
-    FOREIGN KEY (creater_user_id) REFERENCES user_profile(user_profile_id),
-    FOREIGN KEY (partner_user_id) REFERENCES user_profile(user_profile_id),
+    partner_progress INTEGER, 
     FOREIGN KEY (interest_id) REFERENCES interest(interest_id)
 );
 CREATE TABLE interest_connection (
@@ -41,5 +38,5 @@ CREATE TABLE connection_request (
     sender_id INTEGER REFERENCES user_profile(user_profile_id),
     receiver_id INTEGER REFERENCES user_profile(user_profile_id),
     status TEXT,
-    timestamp TIMESTAMP
+    last_login TIMESTAMP
 );
