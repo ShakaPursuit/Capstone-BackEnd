@@ -22,6 +22,7 @@ CREATE TABLE goals (
     goal_id SERIAL PRIMARY KEY,
     user_profile_id INTEGER REFERENCES user_profile(user_profile_id),
     partner_user_id INTEGER REFERENCES user_profile(user_profile_id),
+    goal_name VARCHAR(50),
     goal_description VARCHAR(255),
     target_date DATE,
     creater_progress INTEGER,
@@ -32,7 +33,7 @@ CREATE TABLE goals (
 CREATE TABLE interest_connection (
     interest_connection_id SERIAL PRIMARY KEY,
     interest_id INTEGER REFERENCES interest(interest_id),
-    user_id INTEGER REFERENCES user_profile(user_profile_id)
+    user_profile_id INTEGER REFERENCES user_profile(user_profile_id)
 );
 CREATE TABLE connection_request (
     request_id SERIAL PRIMARY KEY,
