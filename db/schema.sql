@@ -20,14 +20,15 @@ CREATE TABLE interest (
 );
 CREATE TABLE goals (
     goal_id SERIAL PRIMARY KEY,
-    FOREIGN KEY (creater_user_id) REFERENCES user_profile(user_profile_id),
-    FOREIGN KEY (partner_user_id) REFERENCES user_profile(user_profile_id),
+    user_profile_id INTEGER REFERENCES user_profile(user_profile_id),
+    partner_user_id INTEGER REFERENCES user_profile(user_profile_id),
     goal_description VARCHAR(255),
     target_date DATE,
     creater_progress INTEGER,
     partner_progress INTEGER, 
-    FOREIGN KEY (interest_id) REFERENCES interest(interest_id)
+    interest_id INTEGER REFERENCES interest(interest_id)
 );
+
 CREATE TABLE interest_connection (
     interest_connection_id SERIAL PRIMARY KEY,
     interest_id INTEGER REFERENCES interest(interest_id),
