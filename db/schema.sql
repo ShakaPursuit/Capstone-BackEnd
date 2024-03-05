@@ -4,7 +4,7 @@ CREATE DATABASE goalhive_app;
 
 CREATE TABLE user_accounts (
     user_id SERIAL PRIMARY KEY,
-    username VARCHAR NOT NULL,
+    username VARCHAR(15) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
     password_hash VARCHAR(255) NOT NULL
 );

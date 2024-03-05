@@ -2,20 +2,20 @@
 const express = require("express");
 
 // Creating an instance of a Router
-const profiles = express.Router();
+const profiles = express.Router({ mergeParams: true });
+const { authenticateToken } = require("../auth/auth");
 
 // Importing db query functions
 const {
   getProfiles,
   getProfile,
   createProfile,
-  updateProfile,
-  deleteProfile,
+  // updateProfile,
+  // deleteProfile,
 } = require("../queries/profiles");
-const { authenticateToken } = require("../auth/auth");
 
 // Get ALL profiles request
-profiles.get("/", authenticateToken, async (req, res) => {
+profiles.get("/", async (req, res) => {
   try {
     const profiles = await getProfiles();
     res.status(200).json(profiles);
@@ -23,7 +23,7 @@ profiles.get("/", authenticateToken, async (req, res) => {
     res.status(404).json({ error });
   }
 });
-profiles.get("/:id", authenticateToken, async (req, res) => {
+profiles.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
     const profile = await getProfile(id);
@@ -32,7 +32,7 @@ profiles.get("/:id", authenticateToken, async (req, res) => {
     res.status(404).json({ error: error });
   }
 });
-
+/*
 // Create NEW profile
 profiles.post("/", authenticateToken, async (req, res) => {
   try {
@@ -42,7 +42,8 @@ profiles.post("/", authenticateToken, async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
-
+*/
+/*
 //  Update profile
 profiles.put("/:id", authenticateToken, async (req, res) => {
   try {
@@ -63,7 +64,8 @@ profiles.delete("/:id", authenticateToken, async (req, res) => {
     res.status(404).json({ error: error });
   }
 });
-
+*/
+/*
 profiles.get("/", authenticateToken, async (req, res) => {
   try {
     const { user_profile_id } = req.params;
@@ -73,5 +75,5 @@ profiles.get("/", authenticateToken, async (req, res) => {
     res.status(404).json({ error: error });
   }
 });
-
+*/
 module.exports = profiles;

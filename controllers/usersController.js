@@ -18,6 +18,7 @@ const {
   logInUser,
 } = require("../queries/users");
 
+// Get All Users
 users.get("/", async (req, res) => {
   try {
     const users = await getUsers();
@@ -27,25 +28,27 @@ users.get("/", async (req, res) => {
   }
 });
 
+// Get Single User
 users.get("/:id", async (req, res) => {
-  const { id } = req.params;
+  const { id, user_id } = req.params;
   try {
-    const user = await getUser(id);
+    const user = await getUser(id, user_id);
     res.status(200).json(user);
   } catch (error) {
     res.status(500).json({ error: "Failed to fetch users" });
   }
 });
 
+// Create User
 users.post("/", async (req, res) => {
   try {
     const newUser = await createUser(req.body);
-    const token = jwt.sign(
+    /*const token = jwt.sign(
       { userId: newUser.user_id, username: newUser.username },
       secret
-    );
+    );*/
 
-    res.status(201).json({ user: newUser, token });
+    res.status(201).json({ user: newUser });
   } catch (error) {
     res
       .status(400)
@@ -53,6 +56,7 @@ users.post("/", async (req, res) => {
   }
 });
 
+// Login User
 users.post("/login", async (req, res) => {
   try {
     const user = await logInUser(req.body);

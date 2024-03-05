@@ -14,7 +14,7 @@ const getProfiles = async () => {
 const getProfile = async (user_profile_id) => {
   try {
     const profile = db.one(
-      "SELECT * FROM user_profiles WHERE user_profile_id=$1",
+      "SELECT * FROM user_profiles WHERE id=$1",
       user_profile_id
     );
     return profile;
@@ -46,6 +46,7 @@ const createProfile = async (profile) => {
   }
 };
 
+/*
 const updateProfile = async (id, profile) => {
   try {
     // const { firstname, lastname, age, gender, bio } = profile;
@@ -78,11 +79,11 @@ const deleteProfile = async (id) => {
     throw new Error("Error deleting profile: " + err.message);
   }
 };
-
+*/
 module.exports = {
   getProfiles,
   getProfile,
   createProfile,
-  updateProfile,
-  deleteProfile,
+  // updateProfile,
+  // deleteProfile,
 };

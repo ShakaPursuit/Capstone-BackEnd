@@ -4,11 +4,12 @@ const db = require("../db/dbConfig");
 // Import library to hash password
 const bcrypt = require("bcrypt");
 
+// Create User
 const createUser = async (user) => {
   try {
     const { username, email, password_hash } = user;
-    const saltRounds = 10;
-    const hash = await bcrypt.hash(password_hash, saltRounds);
+    const salt = 10;
+    const hash = await bcrypt.hash(password_hash, salt);
     const newUser = await db.one(
       "INSERT INTO user_accounts (username, email, password_hash) VALUES($1, $2, $3) RETURNING *",
       [username, email, hash]
@@ -19,6 +20,7 @@ const createUser = async (user) => {
   }
 };
 
+// Get All
 const getUsers = async () => {
   try {
     const users = await db.any("SELECT * FROM user_accounts");
@@ -28,15 +30,17 @@ const getUsers = async () => {
   }
 };
 
-const getUser = async () => {
+// Get Single
+const getUser = async (id) => {
   try {
-    const user = await db.any("SELECT * FROM user_accounts WHERE user_id=$1");
+    const user = await db.any("SELECT * FROM user_accounts WHERE id=$1", [id]);
     return user;
   } catch (error) {
     throw new Error("Failed to create user: " + error.message);
   }
 };
 
+// Login User
 const logInUser = async (user) => {
   try {
     // const { username, password } = user;
