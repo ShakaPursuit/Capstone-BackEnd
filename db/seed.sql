@@ -1,17 +1,17 @@
 \c goalhive_app
 
--- Seed data for user_account table
-INSERT INTO user_accounts (username, email, password_hash,)
+-- Seed data for user_accounts table
+INSERT INTO user_accounts (username, email, password_hash, profile_id)
 VALUES
-    ('johnhenry', 'johnhenry@yahoo.com', 'AB@hash123'),
-    ('alicesmith', 'alicesmith@msn.com', 'Q@pass456'),
-    ('michaelj', 'michael@gmail.com', 'P!pwd789'),
-    ('scarlettbourd', 'scarlett@hotmail.com', 'b@aAuty9810'),
-    ('louiscartman', 'louiscartman@aol.com', 'Space@341'),
-    ('samanthacollins', 'samanthacol@yahoo.com', 'g@rdeN44');
+    ('johnhenry', 'johnhenry@yahoo.com', 'AB@hash123', NULL),
+    ('alicesmith', 'alicesmith@msn.com', 'Q@pass456', NULL),
+    ('michaelj', 'michael@gmail.com', 'P!pwd789', NULL),
+    ('scarlettbourd', 'scarlett@hotmail.com', 'b@aAuty9810', NULL),
+    ('louiscartman', 'louiscartman@aol.com', 'Space@341', NULL),
+    ('samanthacollins', 'samanthacol@yahoo.com', 'g@rdeN44', NULL);
 
--- Seed data for user_profile table
-INSERT INTO user_profiles (firstname, lastname, user_profile_img, age, gender, bio, last_login, active_status, user_account_id)
+-- Seed data for user_profiles table
+INSERT INTO user_profiles (firstname, lastname, user_profile_img, age, gender, bio, last_login, active_status, account_id)
 VALUES 
     ('John', 'Lewis', '', 25, 'male', 'Passionate about fitness and health', '2024-02-28 15:00:00', 'active', 1),
     ('Alice', 'Smith', '', 28, 'female', 'Enthusiastic learner and traveler', '2024-02-27 10:30:00', 'active', 2),
@@ -19,6 +19,12 @@ VALUES
     ('Scarlett', 'Bourdeoux', '', 34, 'female', 'Learning a language in a foreign country', '2024-02-25 11:20:00', 'active', 4),
     ('Louis', 'Cartman', '', 49, 'male', 'Avid swimmer at all times', '2024-02-24 09:15:00', 'active', 5),
     ('Samantha', 'Collins', '', 50, 'female', 'Love to take care of my garden', '2024-02-23 08:00:00', 'active', 6);
+
+-- Update request to update the profile_id from the user_accounts table to match the user_profiles table id, only if the user_accounts table id matches the user_profiles table account_id
+UPDATE user_accounts
+SET profile_id = user_profiles.id
+FROM user_profiles
+WHERE user_accounts.username = user_profiles.firstname;
 
 -- Seed data for interests table
 INSERT INTO interests (interest_name)
@@ -31,7 +37,7 @@ VALUES
     ('Gardening');
 
 -- Seed data for goals table
-INSERT INTO goals (user_account_id, partner_user_id, goal_name, goal_description, target_date, meeting_frequency_preference, goal_length_preference, creater_progress, partner_progress, interest_id)
+INSERT INTO goals (goal_profile_id, partner_id, name, description, target_date, meeting_frequency_preference, goal_length_preference, creater_progress, partner_progress, interest_id)
 VALUES
     (1, 2, 'Lose 10 pounds', 'Want to get in better shape before summer', '2024-06-30', 'Weekly', '3 months', 0, 0, 1),
     (2, 1, 'Learn Spanish', 'Planning a trip to Spain next year', '2025-01-01', 'Daily', '1 year', 0, 0, 2),
@@ -40,8 +46,8 @@ VALUES
     (1, 5, 'Start a blog', 'Sharing insights and experiences with the world', '2025-01-01', 'Monthly', '2 years', 0, 0, 1),
     (3, 1, 'Complete a marathon', 'Training for a full marathon', '2024-11-15', 'Weekly', '6 months', 0, 0, 3);
 
--- Seed data for interest_connection table
-INSERT INTO interest_connections (interest_id, user_profile_id)
+-- Seed data for interest_connections table
+INSERT INTO interest_connections (interest_connect_id, profile_connect_id)
 VALUES
     (1, 1),
     (2, 2),
@@ -50,7 +56,7 @@ VALUES
     (5, 5),
     (6, 6);
 
--- Seed data for connection_request table
+-- Seed data for connection_requests table
 INSERT INTO connection_requests (sender_id, receiver_id, status, timestamp)
 VALUES
     (1, 2, 'Pending', '2024-02-29 10:00:00'),
