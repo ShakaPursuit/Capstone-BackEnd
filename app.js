@@ -4,7 +4,7 @@ const cors = require("cors");
 const app = express();
 const usersController = require("./controllers/usersController.js");
 const profilesController = require("./controllers/profilesController.js");
-const { authenticateToken } = require("./auth/auth.js");
+// const { authenticateToken } = require("./auth/auth.js");
 
 // Middleware
 app.use(cors());

@@ -6,29 +6,30 @@ const getProfiles = async () => {
     const profiles = await db.any("SELECT * FROM user_profiles");
     return profiles;
   } catch (error) {
-    return err;
+    return error;
   }
 };
 
 // Get a single profile
-const getProfile = async (user_profile_id) => {
+const getProfile = async (id) => {
   try {
     const profile = db.one(
-      "SELECT * FROM user_profiles WHERE id=$1",
-      user_profile_id
+      "SELECT * FROM user_profiles WHERE user_profile_id=$1",
+      id
     );
     return profile;
   } catch (error) {
-    return err;
+    return error;
   }
 };
 
 // Create NEW profile
 const createProfile = async (profile) => {
   try {
-    const { username, firstname, lastname, age, gender, bio } = profile;
+    const { username, firstname, lastname, age, gender, bio, user_account_id } =
+      profile;
     const newProfile = await db.one(
-      "INSERT into user_profiles (firstname, lastname, user_profile_img, age, gender, bio, last_login, active_status) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
+      "INSERT into user_profiles (firstname, lastname, user_profile_img, age, gender, bio, last_login, active_status, user_account_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *",
       [
         profile.firstname,
         profile.lastname,
@@ -38,11 +39,13 @@ const createProfile = async (profile) => {
         profile.bio,
         profile.last_login,
         profile.active_status,
+        profile.user_account_id,
       ]
     );
     return newProfile;
   } catch (error) {
-    throw new Error("Error creating profile: " + err.message);
+    return error;
+    // throw new Error("Error creating profile: " + err.message);
   }
 };
 

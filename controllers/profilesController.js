@@ -32,7 +32,7 @@ profiles.get("/:id", async (req, res) => {
     res.status(404).json({ error: error });
   }
 });
-/*
+
 // Create NEW profile
 profiles.post("/", authenticateToken, async (req, res) => {
   try {
@@ -42,7 +42,7 @@ profiles.post("/", authenticateToken, async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
-*/
+
 /*
 //  Update profile
 profiles.put("/:id", authenticateToken, async (req, res) => {

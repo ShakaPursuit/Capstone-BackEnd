@@ -30,9 +30,9 @@ users.get("/", async (req, res) => {
 
 // Get Single User
 users.get("/:id", async (req, res) => {
-  const { id, user_id } = req.params;
+  const { id } = req.params;
   try {
-    const user = await getUser(id, user_id);
+    const user = await getUser(id);
     res.status(200).json(user);
   } catch (error) {
     res.status(500).json({ error: "Failed to fetch users" });
@@ -43,10 +43,10 @@ users.get("/:id", async (req, res) => {
 users.post("/", async (req, res) => {
   try {
     const newUser = await createUser(req.body);
-    /*const token = jwt.sign(
+    const token = jwt.sign(
       { userId: newUser.user_id, username: newUser.username },
       secret
-    );*/
+    );
 
     res.status(201).json({ user: newUser });
   } catch (error) {
