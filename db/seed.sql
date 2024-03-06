@@ -24,7 +24,7 @@ VALUES
 UPDATE user_accounts
 SET profile_id = user_profiles.id
 FROM user_profiles
-WHERE user_accounts.username = user_profiles.firstname;
+WHERE user_accounts.id = user_profiles.account_id;
 
 -- Seed data for interests table
 INSERT INTO interests (interest_name)
