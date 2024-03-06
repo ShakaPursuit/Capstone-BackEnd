@@ -3,14 +3,15 @@ CREATE DATABASE goalhive_app;
 \c goalhive_app;
 
 CREATE TABLE user_accounts (
-    user_id SERIAL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     username VARCHAR(15) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
-    password_hash VARCHAR(255) NOT NULL
+    password_hash VARCHAR(255) NOT NULL,
+    profile_id INTEGER 
 );
 
 CREATE TABLE user_profiles (
-    user_profile_id SERIAL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     firstname VARCHAR,
     lastname VARCHAR,
     user_profile_img VARCHAR(255),
@@ -18,38 +19,42 @@ CREATE TABLE user_profiles (
     gender VARCHAR,
     bio VARCHAR(255),
     last_login TIMESTAMP,
-    active_status VARCHAR DEFAULT 'active'
+    active_status VARCHAR DEFAULT 'active',
+    account_id INTEGER REFERENCES user_accounts(id) ON DELETE CASCADE
 );
 
+ALTER TABLE user_accounts
+ADD CONSTRAINT fk_user_accounts_profile_id FOREIGN KEY (profile_id) REFERENCES user_profiles(id) ON DELETE CASCADE;
+
 CREATE TABLE interests (
-    interest_id SERIAL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     interest_name TEXT
 );
 
 CREATE TABLE goals (
-    goal_id SERIAL PRIMARY KEY,
-    user_id INTEGER REFERENCES user_accounts(user_id),
-    partner_user_id INTEGER REFERENCES user_profiles(user_profile_id),
-    goal_name VARCHAR(50),
-    goal_description VARCHAR(255),
+    id SERIAL PRIMARY KEY,
+    goal_profile_id INTEGER REFERENCES user_profiles(id),
+    partner_id INTEGER REFERENCES user_profiles(id),
+    name VARCHAR(50),
+    description VARCHAR(255),
     target_date DATE,
     meeting_frequency_preference VARCHAR(255),
     goal_length_preference VARCHAR(255),
     creater_progress INTEGER,
     partner_progress INTEGER,
-    interest_id INTEGER REFERENCES interests(interest_id)
+    interest_id INTEGER REFERENCES interests(id)
 );
 
 CREATE TABLE interest_connections (
-    interest_connection_id SERIAL PRIMARY KEY,
-    interest_id INTEGER REFERENCES interests(interest_id),
-    user_profile_id INTEGER REFERENCES user_profiles(user_profile_id)
+    id SERIAL PRIMARY KEY,
+    interest_id INTEGER REFERENCES interests(id),
+    profile_id INTEGER REFERENCES user_profiles(id)
 );
 
 CREATE TABLE connection_requests (
-    request_id SERIAL PRIMARY KEY,
-    sender_id INTEGER REFERENCES user_profiles(user_profile_id),
-    receiver_id INTEGER REFERENCES user_profiles(user_profile_id),
+    id SERIAL PRIMARY KEY,
+    sender_id INTEGER REFERENCES user_profiles(id),
+    receiver_id INTEGER REFERENCES user_profiles(id),
     status TEXT,
     timestamp TIMESTAMP
 );

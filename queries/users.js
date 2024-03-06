@@ -33,7 +33,10 @@ const getUsers = async () => {
 // Get Single
 const getUser = async (id) => {
   try {
-    const user = await db.any("SELECT * FROM user_accounts WHERE id=$1", [id]);
+    const user = await db.one(
+      "SELECT * FROM user_profiles WHERE user_account_id=$1 LEFT JOIN user_accounts ON user_profiles.user_account_id = user_accounts.user_account_id",
+      id
+    );
     return user;
   } catch (error) {
     throw new Error("Failed to create user: " + error.message);

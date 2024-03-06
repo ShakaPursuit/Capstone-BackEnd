@@ -1,24 +1,24 @@
 \c goalhive_app
 
 -- Seed data for user_account table
-INSERT INTO user_accounts (username, email, password_hash)
+INSERT INTO user_accounts (username, email, password_hash,)
 VALUES
-    ('johnlewis', 'johnlewis@yahoo.com', 'hash123'),
-    ('alicesmith', 'alicesmith@msn.com', 'pass456'),
-    ('michaelj', 'michael@gmail.com', 'pwd789'),
-    ('scarlettbourd', 'scarlett@hotmail.com', 'beauty9810'),
+    ('johnhenry', 'johnhenry@yahoo.com', 'AB@hash123'),
+    ('alicesmith', 'alicesmith@msn.com', 'Q@pass456'),
+    ('michaelj', 'michael@gmail.com', 'P!pwd789'),
+    ('scarlettbourd', 'scarlett@hotmail.com', 'b@aAuty9810'),
     ('louiscartman', 'louiscartman@aol.com', 'Space@341'),
-    ('samanthacollins', 'samanthacol@yahoo.com', 'garden244');
+    ('samanthacollins', 'samanthacol@yahoo.com', 'g@rdeN44');
 
 -- Seed data for user_profile table
-INSERT INTO user_profiles (user_profile_id, firstname, lastname, user_profile_img, age, gender, bio, last_login, active_status)
+INSERT INTO user_profiles (firstname, lastname, user_profile_img, age, gender, bio, last_login, active_status, user_account_id)
 VALUES 
-    (1,'John', 'Lewis', '', 25, 'male', 'Passionate about fitness and health', '2024-02-28 15:00:00', 'active'),
-    (2,'Alice', 'Smith', '', 28, 'female', 'Enthusiastic learner and traveler', '2024-02-27 10:30:00', 'active'),
-    (3,'Michael', 'Johnson', '', 39, 'male', 'Art lover and nature enthusiast', '2024-02-26 12:45:00', 'active'),
-    (4,'Scarlett', 'Bourdeoux', '', 34, 'female', 'Learning a language in a foreign country', '2024-02-25 11:20:00', 'active'),
-    (5,'Louis', 'Cartman', '', 49, 'male', 'Avid swimmer at all times', '2024-02-24 09:15:00', 'active'),
-    (6,'Samantha', 'Collins', '', 50, 'female', 'Love to take care of my garden', '2024-02-23 08:00:00', 'active');
+    ('John', 'Lewis', '', 25, 'male', 'Passionate about fitness and health', '2024-02-28 15:00:00', 'active', 1),
+    ('Alice', 'Smith', '', 28, 'female', 'Enthusiastic learner and traveler', '2024-02-27 10:30:00', 'active', 2),
+    ('Michael', 'Johnson', '', 39, 'male', 'Art lover and nature enthusiast', '2024-02-26 12:45:00', 'active', 3),
+    ('Scarlett', 'Bourdeoux', '', 34, 'female', 'Learning a language in a foreign country', '2024-02-25 11:20:00', 'active', 4),
+    ('Louis', 'Cartman', '', 49, 'male', 'Avid swimmer at all times', '2024-02-24 09:15:00', 'active', 5),
+    ('Samantha', 'Collins', '', 50, 'female', 'Love to take care of my garden', '2024-02-23 08:00:00', 'active', 6);
 
 -- Seed data for interests table
 INSERT INTO interests (interest_name)
@@ -31,7 +31,7 @@ VALUES
     ('Gardening');
 
 -- Seed data for goals table
-INSERT INTO goals (user_id, partner_user_id, goal_name, goal_description, target_date, meeting_frequency_preference, goal_length_preference, creater_progress, partner_progress, interest_id)
+INSERT INTO goals (user_account_id, partner_user_id, goal_name, goal_description, target_date, meeting_frequency_preference, goal_length_preference, creater_progress, partner_progress, interest_id)
 VALUES
     (1, 2, 'Lose 10 pounds', 'Want to get in better shape before summer', '2024-06-30', 'Weekly', '3 months', 0, 0, 1),
     (2, 1, 'Learn Spanish', 'Planning a trip to Spain next year', '2025-01-01', 'Daily', '1 year', 0, 0, 2),
