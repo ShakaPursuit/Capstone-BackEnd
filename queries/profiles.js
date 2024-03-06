@@ -26,7 +26,7 @@ const createProfile = async (profile) => {
     const { username, firstname, lastname, age, gender, bio, account_id } =
       profile;
     const newProfile = await db.one(
-      "INSERT into user_profiles (firstname, lastname, user_profile_img, age, gender, bio, last_login, active_status, account_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *",
+      "INSERT INTO user_profiles (firstname, lastname, user_profile_img, age, gender, bio, last_login, active_status, account_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *",
       [
         profile.firstname,
         profile.lastname,
