@@ -13,7 +13,10 @@ const getProfiles = async () => {
 // Get a single profile
 const getProfile = async (id) => {
   try {
-    const profile = db.one("SELECT * FROM user_profiles WHERE id=$1", id);
+    const profile = db.one(
+      "SELECT * FROM user_profiles WHERE account_id=$1",
+      id
+    );
     return profile;
   } catch (error) {
     return error;

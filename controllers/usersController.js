@@ -18,6 +18,7 @@ const {
   logInUser,
 } = require("../queries/users");
 
+const { getProfile } = require("../queries/profiles");
 // Get All Users
 users.get("/", async (req, res) => {
   try {
@@ -41,7 +42,6 @@ users.get("/:id", async (req, res) => {
 
 // Create User
 users.post("/", async (req, res) => {
-  console.log("Hello World ");
   try {
     const newUser = await createUser(req.body);
     console.log(newUser);
@@ -63,6 +63,7 @@ users.post("/", async (req, res) => {
 users.post("/login", async (req, res) => {
   try {
     const user = await logInUser(req.body);
+    const userProfile = await getProfile(user.id);
     if (!user) {
       res.status(401).json({ error: "Invalid username or password" });
       return; // Exit the function
@@ -80,8 +81,10 @@ users.post("/login", async (req, res) => {
         email: user.email,
       },
       token,
+      userProfile,
     });
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error: "Failed to login user" });
   }
 });
