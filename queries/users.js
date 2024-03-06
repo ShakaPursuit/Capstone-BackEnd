@@ -7,12 +7,12 @@ const bcrypt = require("bcrypt");
 // Create User
 const createUser = async (user) => {
   try {
-    const { username, email, password_hash } = user;
+    const { username, email, password_hash, profile_id } = user;
     const salt = 10;
     const hash = await bcrypt.hash(password_hash, salt);
     const newUser = await db.one(
-      "INSERT INTO user_accounts (username, email, password_hash) VALUES($1, $2, $3) RETURNING *",
-      [username, email, hash]
+      "INSERT INTO user_accounts (username, email, password_hash, profile_id) VALUES($1, $2, $3, $4) RETURNING *",
+      [username, email, hash, profile_id]
     );
     return newUser;
   } catch (error) {
@@ -33,10 +33,7 @@ const getUsers = async () => {
 // Get Single
 const getUser = async (id) => {
   try {
-    const user = await db.one(
-      "SELECT * FROM user_profiles WHERE user_account_id=$1 LEFT JOIN user_accounts ON user_profiles.user_account_id = user_accounts.user_account_id",
-      id
-    );
+    const user = await db.one("SELECT * FROM user_accounts WHERE id=$1", id);
     return user;
   } catch (error) {
     throw new Error("Failed to create user: " + error.message);
