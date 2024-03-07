@@ -14,7 +14,6 @@ const createUser = async (user) => {
       "INSERT INTO user_accounts (username, email, password_hash, profile_id) VALUES($1, $2, $3, $4) RETURNING *",
       [username, email, hash, profile_id]
     );
-    console.log(newUser);
     return newUser;
   } catch (error) {
     throw new Error("Failed to create user: " + error.message);

@@ -44,15 +44,13 @@ users.get("/:id", async (req, res) => {
 users.post("/", async (req, res) => {
   try {
     const newUser = await createUser(req.body);
-    console.log(newUser);
     const token = jwt.sign(
-      { userId: newUser.id, username: newUser.username },
+      { userId: newUser.user_id, username: newUser.username },
       secret
     );
 
-    res.status(201).json({ user: newUser, token });
+    res.status(201).json({ user: newUser });
   } catch (error) {
-    console.log(error);
     res
       .status(400)
       .json({ error: "invalid information provided", info: error });
@@ -70,16 +68,14 @@ users.post("/login", async (req, res) => {
     }
 
     const token = jwt.sign(
-      { userId: user.id, username: user.username },
+      { userId: user.user_id, username: user.username },
       secret
     );
 
     res.status(200).json({
-      users: {
-        id: user.id,
-        username: user.username,
-        email: user.email,
-      },
+      id: user.user_id,
+      username: user.username,
+      email: user.email,
       token,
       userProfile,
     });
