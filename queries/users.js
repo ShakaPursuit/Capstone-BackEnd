@@ -7,12 +7,12 @@ const bcrypt = require("bcrypt");
 // Create User
 const createUser = async (user) => {
   try {
-    const { username, email, password_hash, profile_id } = user;
+    const { username, email, password_hash} = user;
     const salt = 10;
     const hash = await bcrypt.hash(password_hash, salt);
     const newUser = await db.one(
       "INSERT INTO user_accounts (username, email, password_hash, profile_id) VALUES($1, $2, $3, $4) RETURNING *",
-      [username, email, hash, profile_id]
+      [username, email, hash]
     );
     console.log(newUser);
     return newUser;
