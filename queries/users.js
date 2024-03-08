@@ -69,3 +69,4 @@ const logInUser = async (user) => {
 };
 
 module.exports = { createUser, getUsers, getUser, logInUser };
+

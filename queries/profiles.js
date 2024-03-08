@@ -1,6 +1,23 @@
+// Import the connection to the database(db)
 const db = require("../db/dbConfig");
+// Import Library to hash password
+const bcrypt = require("bcrypt");
 
-// Get All profiles
+const createProfile = async (profile) => {
+  try {
+    const { username, email, password_hash } = profile;
+    const salt = 15;
+    const hash = await bcrypt.hash(password_hash, salt);
+    const newProfile = await db.one(
+      "INSERT INTO user_profiles (username, email, password_hash) VALUES ($1, $2, $3) RETURNING *",
+      [username, email, hash]
+    );
+    return newProfile;
+  } catch (error) {
+    return error;
+  }
+};
+
 const getProfiles = async () => {
   try {
     const profiles = await db.any("SELECT * FROM user_profiles");
@@ -10,83 +27,20 @@ const getProfiles = async () => {
   }
 };
 
-// Get a single profile
-const getProfile = async (id) => {
+const logInProfile = async (profile) => {
   try {
-    const profile = db.one(
-      "SELECT * FROM user_profiles WHERE account_id=$1",
-      id
-    );
-    return profile;
+    const loggedInProfile = await db.oneOrNone("SELECT * FROM user_profiles WHERE username=$1", profile.username)
+    if(!loggedInProfile){
+        return false
+    }
+    const passwordMatch = await bcrypt.compare(profile.password_hash, loggedInProfile.password_hash)
+    if(!passwordMatch){
+        return false
+    }
+    return loggedInProfile
   } catch (error) {
-    return error;
+    return error
   }
 };
 
-// Create NEW profile
-const createProfile = async (profile) => {
-  try {
-    const { username, firstname, lastname, age, gender, bio, account_id } =
-      profile;
-    const newProfile = await db.one(
-      "INSERT INTO user_profiles (firstname, lastname, user_profile_img, age, gender, bio, last_login, active_status, account_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *",
-      [
-        profile.firstname,
-        profile.lastname,
-        profile.user_profile_img,
-        profile.age,
-        profile.gender,
-        profile.bio,
-        profile.last_login,
-        profile.active_status,
-        profile.account_id,
-      ]
-    );
-    return newProfile;
-  } catch (error) {
-    return error;
-    // throw new Error("Error creating profile: " + err.message);
-  }
-};
-
-/*
-const updateProfile = async (id, profile) => {
-  try {
-    // const { firstname, lastname, age, gender, bio } = profile;
-    const updatedProfile = await db.one(
-      "UPDATE user_profiles SET firstname=$1, lastname=$2, user_profile_img=$3, age=$4, gender=$5, bio=$6 WHERE id=$7 RETURNING *",
-      [
-        profile.firstname,
-        profile.lastname,
-        profile.user_profile_img,
-        profile.age,
-        profile.gender,
-        profile.bio,
-        id,
-      ]
-    );
-    return updatedProfile;
-  } catch (error) {
-    throw new Error("Error updating profile: " + err.message);
-  }
-};
-
-const deleteProfile = async (id) => {
-  try {
-    const deletedProfile = await db.none(
-      "DELETE FROM user_profiles WHERE id=$1 RETURNING *",
-      id
-    );
-    return deletedProfile;
-  } catch (error) {
-    throw new Error("Error deleting profile: " + err.message);
-  }
-};
-*/
-module.exports = {
-  getProfiles,
-  getProfile,
-  createProfile,
-  // updateProfile,
-  // deleteProfile,
-};
+module.exports = { createProfile, getProfiles, logInProfile };
