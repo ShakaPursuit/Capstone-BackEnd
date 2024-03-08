@@ -1,67 +1,53 @@
 \c goalhive_app
 
--- Seed data for user_accounts table
-INSERT INTO user_accounts (username, email, password_hash, profile_id)
+-- Seed data for the user_profiles table
+INSERT INTO user_profiles (username, email, password_hash, firstname, lastname, profile_img, age, gender, bio)
 VALUES
-    ('johnhenry', 'johnhenry@yahoo.com', 'AB@hash123', NULL),
-    ('alicesmith', 'alicesmith@msn.com', 'Q@pass456', NULL),
-    ('michaelj', 'michael@gmail.com', 'P!pwd789', NULL),
-    ('scarlettbourd', 'scarlett@hotmail.com', 'b@aAuty9810', NULL),
-    ('louiscartman', 'louiscartman@aol.com', 'Space@341', NULL),
-    ('samanthacollins', 'samanthacol@yahoo.com', 'g@rdeN44', NULL);
+    ('user1', 'user1@example.com', 'hashed_password1', 'John', 'Doe', 'profile1.jpg', 25, 'Male', 'Bio for user1'),
+    ('user2', 'user2@example.com', 'hashed_password2', 'Jane', 'Smith', 'profile2.jpg', 30, 'Female', 'Bio for user2'),
+    ('user3', 'user3@example.com', 'hashed_password3', 'Samantha', 'Johnson', NULL, 28, 'Male', NULL),
+    ('user4', 'user4@example.com', 'password4444', 'TyShawn', 'Wright', NULL, 28, 'Male', 'This is the bio for Tyshawn');
 
--- Seed data for user_profiles table
-INSERT INTO user_profiles (firstname, lastname, user_profile_img, age, gender, bio, last_login, active_status, account_id)
-VALUES 
-    ('John', 'Lewis', '', 25, 'male', 'Passionate about fitness and health', '2024-02-28 15:00:00', 'active', 1),
-    ('Alice', 'Smith', '', 28, 'female', 'Enthusiastic learner and traveler', '2024-02-27 10:30:00', 'active', 2),
-    ('Michael', 'Johnson', '', 39, 'male', 'Art lover and nature enthusiast', '2024-02-26 12:45:00', 'active', 3),
-    ('Scarlett', 'Bourdeoux', '', 34, 'female', 'Learning a language in a foreign country', '2024-02-25 11:20:00', 'active', 4),
-    ('Louis', 'Cartman', '', 49, 'male', 'Avid swimmer at all times', '2024-02-24 09:15:00', 'active', 5),
-    ('Samantha', 'Collins', '', 50, 'female', 'Love to take care of my garden', '2024-02-23 08:00:00', 'active', 6);
-
--- Update request to update the profile_id from the user_accounts table to match the user_profiles table id, only if the user_accounts table id matches the user_profiles table account_id
-UPDATE user_accounts
-SET profile_id = user_profiles.id
-FROM user_profiles
-WHERE user_accounts.id = user_profiles.account_id;
-
--- Seed data for interests table
-INSERT INTO interests (interest_name)
+-- Seed data for the interests table
+INSERT INTO interests (name)
 VALUES
-    ('Fitness'),
+    ('Tech'),
+    ('Hiking'),
+    ('Photography'),
+    ('Gardening'),
     ('Traveling'),
+    ('Health'),
+    ('Fitness'),
+    ('Finance'),
+    ('Crypto'),
     ('Art'),
-    ('Language'),
-    ('Swimming'),
-    ('Gardening');
+    ('Music');
 
--- Seed data for goals table
-INSERT INTO goals (goal_profile_id, partner_id, name, description, target_date, meeting_frequency_preference, goal_length_preference, creater_progress, partner_progress, interest_id)
+-- Seed data for the goals table
+INSERT INTO goals (name, description, target_date, created_at, userprofile_id,interest_id )
 VALUES
-    (1, 2, 'Lose 10 pounds', 'Want to get in better shape before summer', '2024-06-30', 'Weekly', '3 months', 0, 0, 1),
-    (2, 1, 'Learn Spanish', 'Planning a trip to Spain next year', '2025-01-01', 'Daily', '1 year', 0, 0, 2),
-    (3, 4, 'Visit 3 new countries', 'Exploring new cultures and cuisines', '2024-12-31', 'Monthly', '1 year', 0, 0, 3),
-    (2, 3, 'Learn to play guitar', 'Mastering a new musical instrument', '2024-10-01', 'Weekly', '1 year', 0, 0, 2),
-    (1, 5, 'Start a blog', 'Sharing insights and experiences with the world', '2025-01-01', 'Monthly', '2 years', 0, 0, 1),
-    (3, 1, 'Complete a marathon', 'Training for a full marathon', '2024-11-15', 'Weekly', '6 months', 0, 0, 3);
+    ('Learn Web Development', 'Complete a web development course', '2024-12-31', CURRENT_TIMESTAMP, 1, 1),
+    ('Hike a Mountain', 'Reach the summit of a challenging mountain', '2024-08-15', CURRENT_TIMESTAMP, 2, 2),
+    ('Start a Photography Blog', 'Share photography experiences and tips', '2024-10-01', CURRENT_TIMESTAMP, 1, 3),
+    ('Indoor Food Gardening', 'Grow vegetables and herbs in my apartment', '2024-9-01', CURRENT_TIMESTAMP, 4, 4),
+    ('Lose Excess Skin', 'Tighten up the extra skin around my arms and legs', '2024-8-21', CURRENT_TIMESTAMP, 3, 6),
+    ('Learn Blockchain', 'Learn the fundamental basics of bitcoin and blockchain technology', '2024-7-5', CURRENT_TIMESTAMP, 3, 9);
 
--- Seed data for interest_connections table
-INSERT INTO interest_connections (interest_connect_id, profile_connect_id)
+INSERT INTO interest_connections(userprofile_id, interest_id)
 VALUES
-    (1, 1),
-    (2, 2),
-    (3, 3),
-    (4, 4),
-    (5, 5),
-    (6, 6);
+    (1,1),
+    (1,3),
+    (2,2),
+    (2,5),
+    (3,3),
+    (3,6),
+    (4,1),
+    (4,3),
+    (4,4);
 
--- Seed data for connection_requests table
-INSERT INTO connection_requests (sender_id, receiver_id, status, timestamp)
+INSERT INTO connection_requests (sender_user_profile_id, receiver_user_profile_id, status, timestamp)
 VALUES
-    (1, 2, 'Pending', '2024-02-29 10:00:00'),
-    (2, 1, 'Accepted', '2024-02-26 14:00:00'),
-    (3, 1, 'Rejected', '2024-03-01 16:30:00'),
-    (4, 6, 'Pending',  '2024-02-29 10:00:00'),
-    (3, 5, 'Accepted', '2024-02-26 14:00:00'),
-    (5, 6, 'Rejected', '2024-03-01 16:30:00');
+    (1, 2, 'accepted', CURRENT_TIMESTAMP),
+    (3, 1, 'pending', CURRENT_TIMESTAMP),
+    (2, 3, 'accepted', CURRENT_TIMESTAMP),
+    (4, 1, 'pending', CURRENT_TIMESTAMP);

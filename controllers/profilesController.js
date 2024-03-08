@@ -1,79 +1,68 @@
-// Importing Express
 const express = require("express");
+const profiles = express.Router();
+require("dotenv").config();
+// Package to generate tokens to authenticate users(profiles) when sending requests
+const jwt = require("jsonwebtoken");
+const secret = process.env.SECRET;
 
-// Creating an instance of a Router
-const profiles = express.Router({ mergeParams: true });
-const { authenticateToken } = require("../auth/auth");
-
-// Importing db query functions
 const {
-  getProfiles,
-  getProfile,
   createProfile,
-  // updateProfile,
-  // deleteProfile,
+  getProfiles,
+  logInProfile,
 } = require("../queries/profiles");
 
-// Get ALL profiles request
+const goalsController = require("./goalsController");
+profiles.use("/:userprofile_id/goals", goalsController);
+
+// Get ALL profiles
 profiles.get("/", async (req, res) => {
   try {
     const profiles = await getProfiles();
     res.status(200).json(profiles);
   } catch (error) {
-    res.status(404).json({ error });
-  }
-});
-profiles.get("/:id", async (req, res) => {
-  const { id } = req.params;
-  try {
-    const profile = await getProfile(id);
-    res.status(200).json(profile);
-  } catch (error) {
-    res.status(404).json({ error: error });
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
-// Create NEW profile
-profiles.post("/", authenticateToken, async (req, res) => {
+// Create a new profile(signup)
+profiles.post("/", async (req, res) => {
   try {
-    const createdProfile = await createProfile(req.body);
-    res.status(201).json(createdProfile);
+    const newProfile = await createProfile(req.body);
+    const token = jwt.sign(
+      { userId: newProfile.userprofile_id, username: newProfile.username },
+      secret
+    );
+
+    res.status(201).json({ user: newProfile, token });
+  } catch (error) {
+    res.status(500).json({ error: "Invalid Information", info: error });
+  }
+});
+
+// Log into a profile
+profiles.post("/login", async (req, res) => {
+  try {
+    const profileLogin = await logInProfile(req.body);
+    if (!profileLogin) {
+      res.status(401).json({ error: "Invalid username or password" });
+      return;
+    }
+
+    const token = jwt.sign(
+      { userId: profileLogin.userprofile_id, username: profileLogin.username },
+      secret
+    );
+    res.status(200).json({
+      user: {
+        id: profileLogin.userprofile_id,
+        username: profileLogin.username,
+        email: profileLogin.email,
+      },
+      token,
+    });
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
-/*
-//  Update profile
-profiles.put("/:id", authenticateToken, async (req, res) => {
-  try {
-    const { id } = req.params;
-    const updatedProfile = await updateProfile(id, req.body);
-    res.status(200).json(updatedProfile);
-  } catch (error) {
-    res.status(404).json({ error: error });
-  }
-});
-
-// Delete Profile
-profiles.delete("/:id", authenticateToken, async (req, res) => {
-  try {
-    const { id } = await deleteProfile(id);
-    res.status(200).json({ success: "Successfully deleted profile" });
-  } catch (error) {
-    res.status(404).json({ error: error });
-  }
-});
-*/
-/*
-profiles.get("/", authenticateToken, async (req, res) => {
-  try {
-    const { user_profile_id } = req.params;
-    const profiles = await getProfiles(user_profile_id);
-    res.status(200).json(profiles);
-  } catch (error) {
-    res.status(404).json({ error: error });
-  }
-});
-*/
 module.exports = profiles;
