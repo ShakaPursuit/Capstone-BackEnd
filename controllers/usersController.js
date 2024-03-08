@@ -49,7 +49,7 @@ users.post("/", async (req, res) => {
       secret
     );
 
-    res.status(201).json({ user: newUser });
+    res.status(201).json({ user: newUser, token });
   } catch (error) {
     res
       .status(400)
@@ -73,9 +73,11 @@ users.post("/login", async (req, res) => {
     );
 
     res.status(200).json({
+      users:{
       id: user.user_id,
       username: user.username,
       email: user.email,
+    },
       token,
       userProfile,
     });

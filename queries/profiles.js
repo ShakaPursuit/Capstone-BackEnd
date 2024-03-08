@@ -49,7 +49,7 @@ const createProfile = async (profile) => {
   }
 };
 
-/*
+
 const updateProfile = async (id, profile) => {
   try {
     // const { firstname, lastname, age, gender, bio } = profile;
@@ -70,7 +70,7 @@ const updateProfile = async (id, profile) => {
     throw new Error("Error updating profile: " + err.message);
   }
 };
-
+/*
 const deleteProfile = async (id) => {
   try {
     const deletedProfile = await db.none(
@@ -87,6 +87,6 @@ module.exports = {
   getProfiles,
   getProfile,
   createProfile,
-  // updateProfile,
+  updateProfile,
   // deleteProfile,
 };
