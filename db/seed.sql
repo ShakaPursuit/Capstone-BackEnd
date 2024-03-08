@@ -3,10 +3,10 @@
 -- Seed data for the user_profiles table
 INSERT INTO user_profiles (username, email, password_hash, firstname, lastname, profile_img, age, gender, bio)
 VALUES
-    ('user1', 'user1@example.com', 'hashed_password1', 'John', 'Doe', 'profile1.jpg', 25, 'Male', 'Bio for user1'),
-    ('user2', 'user2@example.com', 'hashed_password2', 'Jane', 'Smith', 'profile2.jpg', 30, 'Female', 'Bio for user2'),
-    ('user3', 'user3@example.com', 'hashed_password3', 'Samantha', 'Johnson', NULL, 28, 'Male', NULL),
-    ('user4', 'user4@example.com', 'password4444', 'TyShawn', 'Wright', NULL, 28, 'Male', 'This is the bio for Tyshawn');
+    ('John54', 'john54@example.com', 'hashed_password1', 'John', 'Doe', 'profile1.jpg', 25, 'Male', 'Bio for John54'),
+    ('Jane', 'Jane@example.com', 'hashed_password2', 'Jane', 'Smith', 'profile2.jpg', 30, 'Female', 'Bio for Jane'),
+    ('Samantha95', 'Samantha95@example.com', 'hashed_password3', 'Samantha', 'Johnson', NULL, 28, 'Male', NULL),
+    ('TyShawn9', 'TyShawn9@example.com', 'password4444', 'TyShawn', 'Wright', NULL, 28, 'Male', 'This is the bio for Tyshawn');
 
 -- Seed data for the interests table
 INSERT INTO interests (name)
