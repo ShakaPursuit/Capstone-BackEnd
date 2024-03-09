@@ -1,20 +1,19 @@
 const checkFirstName = (req, res, next) => {
-    const { firstName} = req.body;
-    
-    if (firstName) {
-        return next();
-    } else {
-        res.status(400).json({ error: 'First name are required' });
-    }
+  const { firstname } = req.body;
+  if (firstname) {
+    return next();
+  } else {
+    res.status(400).json({ error: "First name is required" });
+  }
 };
 
 const checkLastName = (req, res, next) => {
-    const { lastName} = req.body;
-    
-    if (lastName) {
-        return next();
-    } else {
-        res.status(400).json({ error: 'Last name are required' });
-    }
+  const { lastname } = req.body;
+  if (lastname) {
+    return next();
+  } else {
+    res.status(400).json({ error: "Last name is required" });
+  }
 };
+
 module.exports = { checkFirstName, checkLastName };

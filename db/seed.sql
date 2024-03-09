@@ -24,7 +24,7 @@ VALUES
     ('Music');
 
 -- Seed data for the goals table
-INSERT INTO goals (name, description, target_date, created_at, userprofile_id,interest_id )
+INSERT INTO goals (name, description, target_date, created_at, userprofile_id, interest_id )
 VALUES
     ('Learn Web Development', 'Complete a web development course', '2024-12-31', CURRENT_TIMESTAMP, 1, 1),
     ('Hike a Mountain', 'Reach the summit of a challenging mountain', '2024-08-15', CURRENT_TIMESTAMP, 2, 2),
