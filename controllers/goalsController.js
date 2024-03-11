@@ -16,7 +16,7 @@ const { checkGoals, checkTargets } = require("../validations/checkGoals");
 const { authenticateToken } = require("../auth/auth");
 
 // Get all goals
-goals.get("/", authenticateToken, async (req, res) => {
+goals.get("/", async (req, res) => {
   try {
     const { userprofile_id } = req.params;
     const goals = await getGoals(userprofile_id);
@@ -28,7 +28,7 @@ goals.get("/", authenticateToken, async (req, res) => {
 });
 
 // Get one goal
-goals.get("/:id", authenticateToken, async (req, res) => {
+goals.get("/:id", async (req, res) => {
   try {
     const { id, userprofile_id } = req.params;
     const goal = await getGoal(id, userprofile_id);
@@ -56,7 +56,7 @@ goals.post(
 
 goals.put(
   "/:id",
-  authenticateToken,
+
   checkGoals,
   checkTargets,
   async (req, res) => {

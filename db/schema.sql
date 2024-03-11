@@ -19,6 +19,7 @@ CREATE TABLE user_profiles (
 
 CREATE TABLE interests (
     interest_id SERIAL PRIMARY KEY,
+    userprofile_id INTEGER REFERENCES user_profiles(userprofile_id),
     name TEXT
 );
 

@@ -26,6 +26,14 @@ const getProfiles = async () => {
     return error;
   }
 };
+const getProfile = async (id) => {
+  try {
+    const user = await db.one("SELECT * FROM user_profiles WHERE userprofile_id=$1",id);
+    return user;
+  } catch (error) {
+    throw new Error("Failed to create user: " + error.message);
+  }
+};
 
 const logInProfile = async (profile) => {
   try {
@@ -83,4 +91,5 @@ module.exports = {
   logInProfile,
   updateProfile,
   deleteProfile,
+  getProfile
 };

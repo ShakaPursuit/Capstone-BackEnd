@@ -3,25 +3,25 @@
 -- Seed data for the user_profiles table
 INSERT INTO user_profiles (username, email, password_hash, firstname, lastname, profile_img, age, gender, bio)
 VALUES
-    ('John54', 'john54@example.com', 'hashed_password1', 'John', 'Doe', 'profile1.jpg', 25, 'Male', 'Bio for John54'),
-    ('Jane', 'Jane@example.com', 'hashed_password2', 'Jane', 'Smith', 'profile2.jpg', 30, 'Female', 'Bio for Jane'),
-    ('Samantha95', 'Samantha95@example.com', 'hashed_password3', 'Samantha', 'Johnson', NULL, 28, 'Male', NULL),
-    ('TyShawn9', 'TyShawn9@example.com', 'password4444', 'TyShawn', 'Wright', NULL, 28, 'Male', 'This is the bio for Tyshawn');
+    ('John54', 'john54@example.com', 'hashed_password1', 'John', 'Doe', 'profile1.png', 25, 'Male', 'Bio for John54'),
+    ('Jane', 'Jane@example.com', 'hashed_password2', 'Jane', 'Smith', 'profile2.png', 30, 'Female', 'Bio for Jane'),
+    ('Samantha95', 'Samantha95@example.com', 'hashed_password3', 'Samantha', 'Johnson', 'profile3.png', 28, 'Male', NULL),
+    ('TyShawn9', 'TyShawn9@example.com', 'password4444', 'TyShawn', 'Wright', 'profile4.png', 28, 'Male', 'This is the bio for Tyshawn');
 
 -- Seed data for the interests table
-INSERT INTO interests (name)
+INSERT INTO interests (name,userprofile_id)
 VALUES
-    ('Tech'),
-    ('Hiking'),
-    ('Photography'),
-    ('Gardening'),
-    ('Traveling'),
-    ('Health'),
-    ('Fitness'),
-    ('Finance'),
-    ('Crypto'),
-    ('Art'),
-    ('Music');
+    ('Tech',1),
+    ('Hiking',2),
+    ('Photography',3),
+    ('Gardening',4),
+    ('Traveling',2),
+    ('Health',4),
+    ('Fitness',3),
+    ('Finance',2),
+    ('Crypto',1),
+    ('Art',2),
+    ('Music',3);
 
 -- Seed data for the goals table
 INSERT INTO goals (name, description, target_date, created_at, userprofile_id, interest_id )
