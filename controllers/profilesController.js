@@ -70,7 +70,7 @@ profiles.post("/login", async (req, res) => {
     );
     res.status(200).json({
       user: {
-        id: profileLogin.userprofile_id,
+        userprofile_id: profileLogin.userprofile_id,
         username: profileLogin.username,
         email: profileLogin.email,
       },
@@ -82,8 +82,6 @@ profiles.post("/login", async (req, res) => {
 });
 
 // Update Profile
-// Still confused on if we need an if statement to check the authenticateToken - Tyrell
-
 profiles.put(
   "/:userprofile_id",
   // authenticateToken,
@@ -93,20 +91,12 @@ profiles.put(
     try {
       const { userprofile_id } = req.params;
       const body = req.body;
-
+      if (userprofile_id !== req.user.userId.toString()) {
+        return res
+          .status(403)
+          .json({ error: "Forbidden - You can only acess your own profile" });
+      }
       const updatedProfile = await updateProfile(userprofile_id, body);
-
-      // if (!updatedProfile) {
-      //   return res
-      //     .status(403)
-      //     .json({ error: "Forbidden - You can only acess your own profile" });
-      // }
-
-      // if (userprofile_id !== req.user.userId) {
-      //   return res
-      //     .status(403)
-      //     .json({ error: "Forbidden - You can only acess your own profile" });
-      // }
 
       res.status(200).json(updatedProfile);
     } catch (error) {
