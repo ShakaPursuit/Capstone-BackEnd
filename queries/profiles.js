@@ -84,6 +84,42 @@ const deleteProfile = async (id) => {
     return error;
   }
 };
+const getConnectedProfiles = async (receiver_user_profile_id,sender_user_profile_id, status) => {
+  try {
+    const connectProfiles = await db.any(
+      `SELECT sender_profiles.*
+      FROM connection_requests
+      JOIN user_profiles AS sender_profiles ON connection_requests.sender_user_profile_id = sender_profiles.userprofile_id
+      JOIN user_profiles AS receiver_profiles ON connection_requests.receiver_user_profile_id = receiver_profiles.userprofile_id
+      WHERE receiver_profiles.userprofile_id = $1
+        AND connection_requests.status = 'accepted'
+      UNION
+      SELECT receiver_profiles.*
+      FROM connection_requests
+      JOIN user_profiles AS sender_profiles ON connection_requests.sender_user_profile_id = sender_profiles.userprofile_id
+      JOIN user_profiles AS receiver_profiles ON connection_requests.receiver_user_profile_id = receiver_profiles.userprofile_id
+      WHERE sender_profiles.userprofile_id = $1
+        AND connection_requests.status = 'accepted'`,
+      [receiver_user_profile_id, sender_user_profile_id,status]
+    );
+    return connectProfiles;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+// const getConnectedProfiles = async (sender_user_profile_id, receiver_user_profile_id, status )=> {
+//   try {
+//     const connectProfiles = await db.any(
+//       `SELECT * FROM connection_requests JOIN user_profiles ON connection_requests.sender_user_profile_id = user_profiles.userprofile_id  OR connection_requests.receiver_user_profile_id = user_profiles.userprofile_id WHERE status='accepted'`, 
+//       [sender_user_profile_id, receiver_user_profile_id, status]
+//     );
+//     return connectProfiles;
+//   } catch (error) {
+//     console.log(error);
+//     throw error;
+//   }
+// };
 
 module.exports = {
   createProfile,
@@ -91,5 +127,6 @@ module.exports = {
   logInProfile,
   updateProfile,
   deleteProfile,
-  getProfile
+  getProfile,
+  getConnectedProfiles
 };

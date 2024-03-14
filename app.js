@@ -9,7 +9,8 @@ const interestController=require("./controllers/interestController")
 app.use(cors());
 app.use(express.json());
 app.use("/profiles", profilesController)
-app.use("/profiles/:id/goals",goalsController)
+app.use("/goals",goalsController)
+
 app.use("/interests",interestController)
 
 app.get("/", (req, res) => {

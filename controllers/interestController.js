@@ -31,10 +31,10 @@ interests.get("/", async (req, res) => {
     }
   });
 
-  interests.get("/:interestconnections_id", async (req, res) => {
+  interests.get("/:interest_id/:userprofile_id", async (req, res) => {
     try {
-      const { interestconnections_id, interest_id } = req.params;
-      const userProfiles = await interests.getUserProfilesByInterest(interestconnections_id, interest_id);
+      const { interestconnections_id, userprofile_id } = req.params;
+      const userProfiles = await interests.getUserProfilesByInterest(interestconnections_id, userprofile_id);
       res.status(200).json(userProfiles);
     } catch (error) {
       console.log(error);

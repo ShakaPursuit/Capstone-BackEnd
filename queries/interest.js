@@ -38,14 +38,14 @@ const getInterest = async (userprofile_id) => {
 //     throw error;
 //   }
 // };
-const getUserProfilesByInterest = async (interestconnections_id,interest_id) => {
+const getUserProfilesByInterest = async (interestconnections_id,userprofile_id) => {
   try {
-    const interests = await db.one(
-      "SELECT * FROM interest_connections WHERE interestconnections_id=$1 AND interest_id=$2"
+    const interests = await db.any(
+      "SELECT * FROM interest_connections WHERE interestconnections_id=S1 AND userprofile_id=$2"
       
       
       ,
-      [interestconnections_id,interest_id]
+      [interestconnections_id,userprofile_id]
     );
     return interests;
   } catch (error) {

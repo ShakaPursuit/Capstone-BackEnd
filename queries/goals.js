@@ -3,7 +3,7 @@ const db = require("../db/dbConfig");
 const getGoals = async (userprofile_id) => {
   try {
     const goals = await db.any(
-      "SELECT * FROM goals WHERE userprofile_id=$1",
+      "SELECT * FROM goals ",
       userprofile_id
     );
     return goals;
@@ -13,11 +13,11 @@ const getGoals = async (userprofile_id) => {
   }
 };
 
-const getGoal = async (id, userprofile_id) => {
+const getGoal = async (goal_id, userprofile_id) => {
   try {
     const goal = await db.one(
       "SELECT * FROM goals WHERE goal_id=$1 AND userprofile_id=$2",
-      [id, userprofile_id]
+      [goal_id, userprofile_id]
     );
     return goal;
   } catch (error) {

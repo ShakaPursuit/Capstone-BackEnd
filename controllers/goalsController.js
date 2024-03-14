@@ -28,10 +28,10 @@ goals.get("/", async (req, res) => {
 });
 
 // Get one goal
-goals.get("/:id", async (req, res) => {
+goals.get("/:userprofile_id", async (req, res) => {
   try {
-    const { id, userprofile_id } = req.params;
-    const goal = await getGoal(id, userprofile_id);
+    const { userprofile_id } = req.params;
+    const goal = await getGoal( userprofile_id);
     res.status(200).json(goal);
   } catch (error) {
     console.log(error);
