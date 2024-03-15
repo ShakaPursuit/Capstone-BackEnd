@@ -11,7 +11,7 @@ const {
   logInProfile,
   updateProfile,
   deleteProfile,
-  getProfile
+  getProfile,
 } = require("../queries/profiles");
 
 const { checkFirstName, checkLastName } = require("../validations/checkName");
@@ -19,10 +19,10 @@ const { checkFirstName, checkLastName } = require("../validations/checkName");
 const goalsController = require("./goalsController");
 profiles.use("/:userprofile_id/goals", goalsController);
 
-// const { authenticateToken } = require("../auth/auth");
+const { authenticateToken } = require("../auth/auth");
 
 // Get ALL profiles
-profiles.get("/", async (req, res) => {
+profiles.get("/", authenticateToken, async (req, res) => {
   try {
     const profiles = await getProfiles();
     res.status(200).json(profiles);
@@ -30,7 +30,7 @@ profiles.get("/", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
-profiles.get("/:id",  async (req, res) => {
+profiles.get("/:id", authenticateToken, async (req, res) => {
   const { id } = req.params;
   try {
     const profile = await getProfile(id);
@@ -41,7 +41,7 @@ profiles.get("/:id",  async (req, res) => {
 });
 
 // Create a new profile(signup)
-profiles.post("/", async (req, res) => {
+profiles.post("/", authenticateToken, async (req, res) => {
   try {
     const newProfile = await createProfile(req.body);
     const token = jwt.sign(
@@ -56,7 +56,7 @@ profiles.post("/", async (req, res) => {
 });
 
 // Log into a profile
-profiles.post("/login", async (req, res) => {
+profiles.post("/login", authenticateToken, async (req, res) => {
   try {
     const profileLogin = await logInProfile(req.body);
     if (!profileLogin) {
@@ -86,7 +86,7 @@ profiles.post("/login", async (req, res) => {
 
 profiles.put(
   "/:userprofile_id",
-  // authenticateToken,
+  authenticateToken,
   checkFirstName,
   checkLastName,
   async (req, res) => {
@@ -117,7 +117,7 @@ profiles.put(
 );
 
 // Delete Profile
-profiles.delete("/:userprofile_id",  async (req, res) => {
+profiles.delete("/:userprofile_id", authenticateToken, async (req, res) => {
   try {
     const { userprofile_id } = req.params;
     const deletedProfile = await deleteProfile(userprofile_id);

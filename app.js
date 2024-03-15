@@ -5,6 +5,7 @@ const app = express();
 const profilesController = require("./controllers/profilesController");
 const goalsController = require("./controllers/goalsController");
 const interestsController = require("./controllers/interestsController");
+
 // Middleware
 app.use(cors());
 app.use(express.json());

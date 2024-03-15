@@ -3,10 +3,16 @@
 -- Seed data for the user_profiles table
 INSERT INTO user_profiles (username, email, password_hash, firstname, lastname, profile_img, age, gender, bio)
 VALUES
-    ('John54', 'john54@example.com', 'hashed_password1', 'John', 'Doe', 'profile1.png', 25, 'Male', 'Bio for John54'),
-    ('Jane', 'Jane@example.com', 'hashed_password2', 'Jane', 'Smith', 'profile2.png', 30, 'Female', 'Bio for Jane'),
-    ('Samantha95', 'Samantha95@example.com', 'hashed_password3', 'Samantha', 'Johnson', 'profile3.png', 28, 'Male', NULL),
-    ('TyShawn9', 'TyShawn9@example.com', 'password4444', 'TyShawn', 'Wright', 'profile4.png', 28, 'Male', 'This is the bio for Tyshawn');
+    ('John54', 'john54@example.com', 'hashed_password01', 'John', 'Doe', 'profile001.png', 25, 'male', 'Bio for John54'),
+('Jane', 'Jane@example.com', 'hashed_password02', 'Jane', 'Smith', 'profile002.png', 30, 'Female', 'Bio for Jane'),
+('Samantha95', 'Samantha95@example.com', 'hashed_password03', 'Samantha', 'Johnson', 'profile003.png', 28, 'male', NULL),
+('TyShawn9', 'TyShawn9@example.com', 'hashed_password04', 'TyShawn', 'Wright', 'profile004.png', 28, 'male', 'This is the bio for Tyshawn'),
+('Denisthemenace', 'dmenace@aol.com', 'hashed_password05', 'Denis', 'Menais', 'profile005.png', 41, '', 'Bio info for Denis'),
+('Tamara357', 'tamara@oaktown357.com', 'hashed_password06', 'Tamara', 'Jackson', 'profile006.png', 37, 'female', 'Bio info for Tamara'),
+('mbrown', 'michaelbrown@pursuit.org', 'hashed_password07', 'Michael', 'Brown', 'profile007.png', 29, 'male', 'Bio info for Michael'),
+('llettings', 'lisalettings@aol.com', 'hashed_password08', 'Lisa', 'Lettings', 'profile008.png', 23, 'female', 'Bio info for Lisa'),
+('patTcake', 'pmoncake@email.com', 'hashed_password09', 'Pat', 'Moncake', 'profile009.png', 33, '', 'Bio info for Pat'),
+('topofdarock', 'rockybordino@gmail.com', 'hashed_password10', 'Rocky', 'Bordino', 'profile010.png', 45, 'male', 'Bio info for Rocky');
 
 -- Seed data for the interests table
 INSERT INTO interests (name)
