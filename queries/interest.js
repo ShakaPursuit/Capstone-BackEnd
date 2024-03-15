@@ -51,6 +51,7 @@ const getUserProfilesByInterest = async (interest_id) => {
   }
 };
 
+// SELECT * FROM connection_request JOIN user_profiles ON connection_request.sender_user_profiles_id = user_profiles.userprofile_id  OR connection_request.receiver_user_profile_id = user_profiles.userprofile_id WHERE connectionrequests_id=$1
 module.exports = {
   getInterests,
   getInterest,
