@@ -48,3 +48,13 @@ CREATE TABLE connection_requests (
     status TEXT,
     timestamp TIMESTAMP
 );
+
+
+CREATE TABLE posts (
+    post_id SERIAL PRIMARY KEY,
+    post_img BYTEA,
+   description VARCHAR(3000) DEFAULT NULL,
+    post_user_profile_id INTEGER REFERENCES user_profiles(userprofile_id)
+    
+
+)
