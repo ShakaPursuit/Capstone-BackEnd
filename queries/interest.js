@@ -9,10 +9,11 @@ const getInterests = async () => {
   }
 };
 
+// this get all interests from a single profile
 const getInterest = async (userprofile_id) => {
   try {
     const interest = await db.any(
-      "SELECT * FROM interests WHERE userprofile_id=$1 ",
+      "SELECT i.* FROM interests i JOIN interest_connections ic ON i.interest_id = ic.interest_id WHERE ic.userprofile_id = $1",
       [userprofile_id]
     );
     return interest;

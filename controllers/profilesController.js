@@ -12,10 +12,7 @@ const {
   updateProfile,
   deleteProfile,
   getProfile,
-<<<<<<< HEAD
-=======
-  getConnectedProfiles
->>>>>>> dev-backend
+  getConnectedProfiles,
 } = require("../queries/profiles");
 
 const { checkFirstName, checkLastName } = require("../validations/checkName");
@@ -121,20 +118,17 @@ profiles.delete("/:userprofile_id", authenticateToken, async (req, res) => {
   }
 });
 
-
-
 // Route to get connection requests for a profile
 profiles.get("/:receiver_user_profile_id/connections", async (req, res) => {
   try {
-    const {  receiver_user_profile_id ,status} = req.params;
+    const { receiver_user_profile_id, status } = req.params;
     // const values = [id];
-    const result = await getConnectedProfiles( receiver_user_profile_id,status);
+    const result = await getConnectedProfiles(receiver_user_profile_id, status);
     res.status(200).json(result);
   } catch (error) {
-    console.error('Error getting connection requests:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    console.error("Error getting connection requests:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
-
 
 module.exports = profiles;

@@ -51,3 +51,28 @@ CREATE TABLE connection_requests
     status TEXT,
     timestamp TIMESTAMP
 );
+
+CREATE TABLE posts
+(
+    post_id SERIAL PRIMARY KEY,
+    userprofile_id INTEGER REFERENCES user_profiles(userprofile_id),
+    post_content TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE comments
+(
+    comment_id SERIAL PRIMARY KEY,
+    post_id INTEGER REFERENCES post(post_id),
+    userprofile_id INTEGER REFERENCES user_profiles(userprofile_id),
+    comment_content TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE likes
+(
+    like_id SERIAL PRIMARY KEY,
+    post_id INTEGER REFERENCES post(post_id),
+    userprofile_id INTEGER REFERENCES user_profiles(userprofile_id),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

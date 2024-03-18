@@ -20,7 +20,18 @@ interests.get("/", async (req, res) => {
   }
 });
 
-// Get one interest
+// interests.get("/profile", async (req, res) => {
+//   try {
+//     const { interest_id } = req.params;
+//     const interests = await getInterests(interest_id);
+//     res.status(200).json(interests);
+//   } catch (error) {
+//     console.log(error);
+//     res.status(404).json({ error: "Interest Not Found" });
+//   }
+// });
+
+// Get Interest from ONE profile
 interests.get("/profile/:userprofile_id", async (req, res) => {
   try {
     const { userprofile_id } = req.params;
@@ -32,7 +43,7 @@ interests.get("/profile/:userprofile_id", async (req, res) => {
   }
 });
 
-interests.get("/:interest_id", async (req, res) => {
+interests.get("/:interest_id/profiles", async (req, res) => {
   try {
     const { interest_id } = req.params;
     const userProfiles = await getUserProfilesByInterest(interest_id);
