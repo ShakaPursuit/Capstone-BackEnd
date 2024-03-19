@@ -3,7 +3,7 @@ DROP DATABASE IF EXISTS goalhive_app;
 CREATE DATABASE goalhive_app;
 
 
-\c goalhive_app
+\c goalhive_app;
 CREATE TABLE user_profiles
 (
     userprofile_id SERIAL PRIMARY KEY,
@@ -50,4 +50,5 @@ CREATE TABLE connection_requests
     receiver_user_profile_id INTEGER REFERENCES user_profiles(userprofile_id),
     status TEXT,
     timestamp TIMESTAMP
-);
+)
+
