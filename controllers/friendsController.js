@@ -1,5 +1,5 @@
 const express = require('express');
-const {createFriends, getFriendRequests, deleteFriendRequest, getSingleFriend} = require('../queries/friends');
+const {createFriends, getFriendRequests, deleteFriendRequest, getSingleFriend, updateFriend} = require('../queries/friends');
 const friendRequest = express.Router()
 
 // get all friends requests
@@ -32,6 +32,18 @@ friendRequest.post("/", async (req, res) => {
         return error;
     }
 })
+// update a friend request
+friendRequest.put("/:connectionrequests_id/:sender_user_profile_id", async (req, res) => {
+    try {
+      const { connectionrequests_id, sender_user_profile_id } = req.params;
+      const { receiver_user_profile_id,status, timestamp } = req.body;
+      const updatedFriend = await updateFriend(connectionrequests_id, sender_user_profile_id, receiver_user_profile_id, status, timestamp);
+      res.status(200).json(updatedFriend);
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ error: "Friend Request Server Error" });
+    }
+  });
 // delete friend request
 friendRequest.delete("/:sender_user_profile_id/:receiver_user_profile_id", async (req, res) => {
     try {
