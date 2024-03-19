@@ -1,4 +1,5 @@
 \c goalhive_app
+
 -- Seed data for the user_profiles table
 INSERT INTO user_profiles
     (username, email, password_hash, firstname, lastname, profile_img, age, gender, bio)
