@@ -50,5 +50,10 @@ CREATE TABLE connection_requests
     receiver_user_profile_id INTEGER REFERENCES user_profiles(userprofile_id),
     status TEXT,
     timestamp TIMESTAMP
-)
-
+);
+CREATE TABLE posts (
+    post_id SERIAL PRIMARY KEY,
+    post_img BYTEA NULL,
+    description VARCHAR(5000),
+    post_user_profile_id INTEGER REFERENCES user_profiles(userprofile_id)
+);
