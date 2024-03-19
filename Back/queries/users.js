@@ -7,8 +7,8 @@ const bcrypt = require("bcrypt");
 const createUser = async (user) => {
   try {
     const { username, email, password_hash } = user;
-    const saltRounds = 10;
-    const hash = await bcrypt.hash(password_hash, saltRounds);
+    const salt = 10;
+    const hash = await bcrypt.hash(password_hash, salt);
     const newUser = await db.one(
       "INSERT INTO user_accounts (username, email, password_hash) VALUES($1, $2, $3) RETURNING *",
       [username, email, hash]
@@ -28,12 +28,21 @@ const getUsers = async () => {
   }
 };
 
-const getUser = async () => {
+const getUser = async (id) => {
   try {
-    const user = await db.any("SELECT * FROM user_accounts WHERE user_id=$1");
+    const user = await db.one("SELECT * FROM user_accounts WHERE user_id=$1",id);
     return user;
   } catch (error) {
     throw new Error("Failed to create user: " + error.message);
+  }
+};
+const updateUser = async (user, id) => {
+  try {
+    const updatedUser = await db.one("UPDATE user_accounts SET username=$1, email=$2, password_hash=$3 WHERE id=$4 RETURNING *", [user.username, user.email, user.password_hash, id]);
+    return updatedUser;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Failed to update user");
   }
 };
 
@@ -63,4 +72,4 @@ const logInUser = async (user) => {
   }
 };
 
-module.exports = { createUser, getUsers, getUser, logInUser };
+module.exports = { createUser, getUsers, getUser, logInUser ,updateUser};

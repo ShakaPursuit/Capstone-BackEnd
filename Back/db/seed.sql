@@ -3,7 +3,7 @@
 -- Seed data for user_account table
 INSERT INTO user_accounts (username, email, password_hash)
 VALUES
-    ('johnlewis', 'johnlewis@yahoo.com', 'hash123'),
+    ('johnnlewiss', 'johnnlewiss@yahoo.com', 'hash123'),
     ('alicesmith', 'alicesmith@msn.com', 'pass456'),
     ('michaelj', 'michael@gmail.com', 'pwd789'),
     ('scarlettbourd', 'scarlett@hotmail.com', 'beauty9810'),
@@ -31,14 +31,14 @@ VALUES
     ('Gardening');
 
 -- Seed data for goals table
-INSERT INTO goals (user_id, partner_user_id, goal_name, goal_description, target_date, meeting_frequency_preference, goal_length_preference, creater_progress, partner_progress, interest_id)
+INSERT INTO goals (goal_profile_id, partner_id, goal_name, goal_description, target_date, meeting_frequency_preference, goal_length_preference, creater_progress, partner_progress, interest_id)
 VALUES
     (1, 2, 'Lose 10 pounds', 'Want to get in better shape before summer', '2024-06-30', 'Weekly', '3 months', 0, 0, 1),
     (2, 1, 'Learn Spanish', 'Planning a trip to Spain next year', '2025-01-01', 'Daily', '1 year', 0, 0, 2),
     (3, 4, 'Visit 3 new countries', 'Exploring new cultures and cuisines', '2024-12-31', 'Monthly', '1 year', 0, 0, 3),
     (2, 3, 'Learn to play guitar', 'Mastering a new musical instrument', '2024-10-01', 'Weekly', '1 year', 0, 0, 2),
-    (1, 5, 'Start a blog', 'Sharing insights and experiences with the world', '2025-01-01', 'Monthly', '2 years', 0, 0, 1),
-    (3, 1, 'Complete a marathon', 'Training for a full marathon', '2024-11-15', 'Weekly', '6 months', 0, 0, 3);
+    (4, 5, 'Start a blog', 'Sharing insights and experiences with the world', '2025-01-01', 'Monthly', '2 years', 0, 0, 1),
+    (5, 1, 'Complete a marathon', 'Training for a full marathon', '2024-11-15', 'Weekly', '6 months', 0, 0, 3);
 
 -- Seed data for interest_connection table
 INSERT INTO interest_connections (interest_id, user_profile_id)
