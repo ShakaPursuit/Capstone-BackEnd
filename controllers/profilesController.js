@@ -11,7 +11,7 @@ const {
   logInProfile,
   updateProfile,
   deleteProfile,
-  getProfile
+  getProfile,
 } = require("../queries/profiles");
 
 const { checkFirstName, checkLastName } = require("../validations/checkName");
@@ -19,7 +19,7 @@ const { checkFirstName, checkLastName } = require("../validations/checkName");
 const goalsController = require("./goalsController");
 profiles.use("/:userprofile_id/goals", goalsController);
 
-// const { authenticateToken } = require("../auth/auth");
+const { authenticateToken } = require("../auth/auth");
 
 // Get ALL profiles
 profiles.get("/", async (req, res) => {
@@ -30,7 +30,8 @@ profiles.get("/", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
-profiles.get("/:id",  async (req, res) => {
+
+profiles.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
     const profile = await getProfile(id);
@@ -84,13 +85,15 @@ profiles.post("/login", async (req, res) => {
 // Update Profile
 profiles.put(
   "/:userprofile_id",
-  // authenticateToken,
+  authenticateToken,
   checkFirstName,
   checkLastName,
   async (req, res) => {
     try {
       const { userprofile_id } = req.params;
       const body = req.body;
+      console.log(userprofile_id);
+      console.log(req.user);
       if (userprofile_id !== req.user.userId.toString()) {
         return res
           .status(403)
@@ -107,7 +110,7 @@ profiles.put(
 );
 
 // Delete Profile
-profiles.delete("/:userprofile_id",  async (req, res) => {
+profiles.delete("/:userprofile_id", async (req, res) => {
   try {
     const { userprofile_id } = req.params;
     const deletedProfile = await deleteProfile(userprofile_id);

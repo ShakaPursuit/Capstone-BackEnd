@@ -16,9 +16,17 @@ const { checkGoals, checkTargets } = require("../validations/checkGoals");
 const { authenticateToken } = require("../auth/auth");
 
 // Get all goals
-goals.get("/", async (req, res) => {
+goals.get("/", authenticateToken, async (req, res) => {
   try {
     const { userprofile_id } = req.params;
+    // console.log(userprofile_id)
+    console.log(userprofile_id);
+    console.log(req.user);
+    if (userprofile_id !== req.user.userId.toString()) {
+      return res
+        .status(403)
+        .json({ error: "Forbidden - You can only acess your own goals" });
+    }
     const goals = await getGoals(userprofile_id);
     res.status(200).json(goals);
   } catch (error) {
@@ -28,9 +36,14 @@ goals.get("/", async (req, res) => {
 });
 
 // Get one goal
-goals.get("/:id", async (req, res) => {
+goals.get("/:id", authenticateToken, async (req, res) => {
   try {
     const { id, userprofile_id } = req.params;
+    if (userprofile_id !== req.user.userId.toString()) {
+      return res
+        .status(403)
+        .json({ error: "Forbidden - You can only acess your own goal" });
+    }
     const goal = await getGoal(id, userprofile_id);
     res.status(200).json(goal);
   } catch (error) {
