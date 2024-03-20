@@ -12,6 +12,7 @@ const {
   updateProfile,
   deleteProfile,
   getProfile,
+  getConnectedProfiles
 } = require("../queries/profiles");
 
 const { checkFirstName, checkLastName } = require("../validations/checkName");
@@ -119,5 +120,21 @@ profiles.delete("/:userprofile_id", async (req, res) => {
     res.status(404).json({ error: "error" });
   }
 });
+
+
+
+// Route to get connection requests for a profile
+profiles.get("/:receiver_user_profile_id/connections", async (req, res) => {
+  try {
+    const {  receiver_user_profile_id ,status} = req.params;
+    // const values = [id];
+    const result = await getConnectedProfiles( receiver_user_profile_id,status);
+    res.status(200).json(result);
+  } catch (error) {
+    console.error('Error getting connection requests:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 
 module.exports = profiles;
