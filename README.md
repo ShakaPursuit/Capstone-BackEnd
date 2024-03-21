@@ -1,8 +1,6 @@
 <a name="readme-top"></a>
 # GoalHive 🥅
 
-![alt text](image.png)
-
 GoalHive, is an application connecting users with like-minded peers to support goal completion. Offering personalized goal setting, progress tracking, and motivation, GoalHive empowers users to stay dedicated to their objectives, fostering long term success and friendship
 
 
