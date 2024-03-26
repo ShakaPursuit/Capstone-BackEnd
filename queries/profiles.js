@@ -84,6 +84,30 @@ const deleteProfile = async (id) => {
     return error;
   }
 };
+const getFriendProfiles = async (receiver_user_profile_id,sender_user_profile_id, status) => {
+  try {
+    const friendProfiles = await db.any(
+      `SELECT sender_profiles.*
+      FROM connection_requests
+      JOIN user_profiles AS sender_profiles ON connection_requests.sender_user_profile_id = sender_profiles.userprofile_id
+      JOIN user_profiles AS receiver_profiles ON connection_requests.receiver_user_profile_id = receiver_profiles.userprofile_id
+      WHERE receiver_profiles.userprofile_id = $1
+        AND connection_requests.status = 'pending'
+      UNION
+      SELECT receiver_profiles.*
+      FROM connection_requests
+      JOIN user_profiles AS sender_profiles ON connection_requests.sender_user_profile_id = sender_profiles.userprofile_id
+      JOIN user_profiles AS receiver_profiles ON connection_requests.receiver_user_profile_id = receiver_profiles.userprofile_id
+      WHERE sender_profiles.userprofile_id = $1
+        AND connection_requests.status = 'pending'`,
+      [receiver_user_profile_id, sender_user_profile_id,status]
+    );
+    return friendProfiles;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
 const getConnectedProfiles = async (receiver_user_profile_id,sender_user_profile_id, status) => {
   try {
     const connectProfiles = await db.any(
@@ -115,5 +139,6 @@ module.exports = {
   updateProfile,
   deleteProfile,
   getProfile,
-  getConnectedProfiles
+  getConnectedProfiles,
+  getFriendProfiles
 };
