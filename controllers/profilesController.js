@@ -12,7 +12,8 @@ const {
   updateProfile,
   deleteProfile,
   getProfile,
-  getConnectedProfiles
+  getConnectedProfiles, 
+  getFriendProfiles
 } = require("../queries/profiles");
 
 const { checkFirstName, checkLastName } = require("../validations/checkName");
@@ -123,12 +124,22 @@ profiles.delete("/:userprofile_id", async (req, res) => {
 
 
 
-// Route to get connection requests for a profile
-profiles.get("/:receiver_user_profile_id/connections", async (req, res) => {
+// Route to get/show your friends (connected to friends)
+profiles.get("/connections/:receiver_user_profile_id", async (req, res) => {
   try {
-    const {  receiver_user_profile_id ,status} = req.params;
-    // const values = [id];
-    const result = await getConnectedProfiles( receiver_user_profile_id,status);
+    const {  receiver_user_profile_id } = req.params;
+    const result = await getConnectedProfiles( receiver_user_profile_id);
+    res.status(200).json(result);
+  } catch (error) {
+    console.error('Error getting connection requests:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+//Route to get your friend requests
+profiles.get("/receiver_user_profile_id/connections/:receiver_user_profile_id", async (req, res) => {
+  try {
+    const {  receiver_user_profile_id} = req.params;
+    const result = await getFriendProfiles( receiver_user_profile_id);
     res.status(200).json(result);
   } catch (error) {
     console.error('Error getting connection requests:', error);
