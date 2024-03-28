@@ -29,6 +29,7 @@ CREATE TABLE goals
     goal_id SERIAL PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
     description VARCHAR(255) DEFAULT NULL,
+    completed BOOLEAN,
     target_date DATE NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     -- user1_prgress INTEGER DEFAULT NULL, 
