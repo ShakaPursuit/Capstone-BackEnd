@@ -3,7 +3,7 @@ const db = require("../db/dbConfig");
 const getGoals = async (userprofile_id) => {
   try {
     const goals = await db.any(
-      "SELECT * FROM goals WHERE userprofile_id=$1",
+      "SELECT * FROM goals WHERE userprofile_id=$1 ORDER BY target_date ASC",
       userprofile_id
     );
     return goals;
@@ -27,11 +27,11 @@ const getGoal = async (id, userprofile_id) => {
 
 const createGoal = async (goal) => {
   try {
-    const { name, description, target_date, userprofile_id, interest_id } =
+    const { name, description, completed, target_date, userprofile_id, interest_id } =
       goal;
     const newGoal = await db.one(
-      "INSERT INTO goals (name, description, target_date, created_at, userprofile_id, interest_id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
-      [name, description, target_date, new Date(), userprofile_id, interest_id]
+      "INSERT INTO goals (name, description, completed, target_date, created_at, userprofile_id, interest_id) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *",
+      [name, description, completed, target_date, new Date(), userprofile_id, interest_id]
     );
     return newGoal;
   } catch (error) {
@@ -41,9 +41,9 @@ const createGoal = async (goal) => {
 
 const updateGoal = async (id, goal) => {
   try {
-    const { name, description, target_date, userprofile_id } = goal;
+    const { name, description, completed, target_date, userprofile_id } = goal;
     const updatedGoal = await db.one(
-      "UPDATE goals SET name=$1, description=$2, target_date=$3, created_at=$4, userprofile_id=$5 WHERE goal_id=$6 RETURNING *",
+      "UPDATE goals SET name=$1, description=$2, completed=$3, target_date=$4, created_at=$5, userprofile_id=$6 WHERE goal_id=$7 RETURNING *",
       [name, description, target_date, new Date(), userprofile_id, id]
     );
     return updatedGoal;
