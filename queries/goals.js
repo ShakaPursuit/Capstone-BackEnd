@@ -44,7 +44,7 @@ const updateGoal = async (id, goal) => {
     const { name, description, completed, target_date, userprofile_id } = goal;
     const updatedGoal = await db.one(
       "UPDATE goals SET name=$1, description=$2, completed=$3, target_date=$4, created_at=$5, userprofile_id=$6 WHERE goal_id=$7 RETURNING *",
-      [name, description, target_date, new Date(), userprofile_id, id]
+      [name, description, completed, target_date, new Date(), userprofile_id, id]
     );
     return updatedGoal;
   } catch (error) {
