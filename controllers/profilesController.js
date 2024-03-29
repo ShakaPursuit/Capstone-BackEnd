@@ -94,8 +94,8 @@ profiles.put(
     try {
       const { userprofile_id } = req.params;
       const body = req.body;
-      console.log(userprofile_id);
-      console.log(req.user);
+      // console.log(userprofile_id);
+      // console.log(req.user);
       if (userprofile_id !== req.user.userId.toString()) {
         return res
           .status(403)
