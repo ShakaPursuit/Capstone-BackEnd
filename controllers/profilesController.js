@@ -18,8 +18,8 @@ const {
 
 const { checkFirstName, checkLastName } = require("../validations/checkName");
 
-const goalsController = require("./goalsController");
-profiles.use("/:userprofile_id/goals", goalsController);
+// const goalsController = require("./goalsController");
+// profiles.use("/:userprofile_id/goals", goalsController);
 
 const { authenticateToken } = require("../auth/auth");
 
@@ -47,6 +47,7 @@ profiles.get("/:id", async (req, res) => {
 profiles.post("/", async (req, res) => {
   try {
     const newProfile = await createProfile(req.body);
+    console.log("new profile: ",newProfile);
     const token = jwt.sign(
       { userId: newProfile.userprofile_id, username: newProfile.username },
       secret
@@ -94,8 +95,8 @@ profiles.put(
     try {
       const { userprofile_id } = req.params;
       const body = req.body;
-      console.log(userprofile_id);
-      console.log(req.user);
+      // console.log(userprofile_id);
+      // console.log(req.user);
       if (userprofile_id !== req.user.userId.toString()) {
         return res
           .status(403)
