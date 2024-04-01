@@ -1,11 +1,13 @@
 const db = require("../db/dbConfig");
 
+// get all goals
 const getGoals = async (userprofile_id) => {
   try {
     const goals = await db.any(
       "SELECT * FROM goals WHERE userprofile_id=$1 ORDER BY target_date ASC",
       userprofile_id
     );
+    console.log("queries for all the goals: ",goals);
     return goals;
   } catch (err) {
     console.log(err);

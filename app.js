@@ -19,7 +19,7 @@ app.use("/posts", postsController);
 app.use("/allgoals", allgoalsController);
 
 app.get("/", (req, res) => {
-  res.json({ index: "This is the index page" });
+  res.status(200).send( "This is the index page" );
 });
 
 app.get("*", (req, res) => {
