@@ -54,7 +54,21 @@ CREATE TABLE connection_requests
 );
 CREATE TABLE posts (
     post_id SERIAL PRIMARY KEY,
-    post_img BYTEA NULL,
-    description VARCHAR(5000),
-    post_user_profile_id INTEGER REFERENCES user_profiles(userprofile_id)
+    post_img BYTEA DEFAULT NULL,
+    post_description VARCHAR(600) DEFAULT NULL,
+    userprofile_id INTEGER REFERENCES user_profiles(userprofile_id)
+    -- goal_id INTEGER REFERENCES goals(goal_id)
+);
+
+CREATE TABLE comments (
+    comment_id SERIAL PRIMARY KEY,
+    description VARCHAR(100) DEFAULT NULL,
+    userprofile_id INTEGER REFERENCES user_profiles(userprofile_id),
+    post_id INTEGER REFERENCES posts(post_id)
+);
+
+CREATE TABLE likes (
+    userprofile_id INTEGER REFERENCES user_profiles(userprofile_id),
+    post_id INTEGER REFERENCES posts(post_id),
+    PRIMARY KEY (userprofile_id, post_id)
 );
