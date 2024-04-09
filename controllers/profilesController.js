@@ -50,7 +50,7 @@ profiles.get("/:id", async (req, res) => {
 profiles.post("/", async (req, res) => {
   try {
     const newProfile = await createProfile(req.body);
-    console.log("new profile: ",newProfile);
+    console.log("new profile: ", newProfile);
     const token = jwt.sign(
       { userId: newProfile.userprofile_id, username: newProfile.username },
       secret
@@ -131,12 +131,12 @@ profiles.delete("/:userprofile_id", async (req, res) => {
 //show pending friend requests
 profiles.get("/:receiver_user_profile_id/connections", async (req, res) => {
   try {
-    const {  receiver_user_profile_id } = req.params;
-    const result = await getConnectedProfiles( receiver_user_profile_id);
+    const { receiver_user_profile_id } = req.params;
+    const result = await getConnectedProfiles(receiver_user_profile_id);
     res.status(200).json(result);
   } catch (error) {
-    console.error('Error getting connection requests:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    console.error("Error getting connection requests:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 //Route to get your friend requests
