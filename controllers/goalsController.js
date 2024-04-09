@@ -21,7 +21,7 @@ goals.get("/", authenticateToken, async (req, res) => {
     const { userprofile_id } = req.params;
     // console.log(userprofile_id)
     console.log("user profile id",userprofile_id);
-    console.log(req.user);
+     console.log(req.user);
     if (userprofile_id !== req.user.userId.toString()) {
       return res
         .status(403)

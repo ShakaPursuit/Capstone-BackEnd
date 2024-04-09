@@ -84,7 +84,7 @@ const deleteProfile = async (id) => {
     return error;
   }
 };
-const getFriendProfiles = async (receiver_user_profile_id,sender_user_profile_id, status) => {
+const getConnectedProfiles = async (receiver_user_profile_id,sender_user_profile_id, status) => {
   try {
     const friendProfiles = await db.any(
       `SELECT sender_profiles.*
@@ -108,7 +108,7 @@ const getFriendProfiles = async (receiver_user_profile_id,sender_user_profile_id
     throw error;
   }
 };
-const getConnectedProfiles = async (receiver_user_profile_id,sender_user_profile_id, status) => {
+const getAcceptedProfiles = async (receiver_user_profile_id,sender_user_profile_id, status) => {
   try {
     const connectProfiles = await db.any(
       `SELECT sender_profiles.*
@@ -132,6 +132,54 @@ const getConnectedProfiles = async (receiver_user_profile_id,sender_user_profile
     throw error;
   }
 };
+
+//show pending friend request
+const getSingleConnectedProfiles = async (receiver_user_profile_id, sender_user_profile_id, status) => {
+  try {
+    const result = await db.oneOrNone(
+      `SELECT *
+      FROM connection_requests
+      WHERE receiver_user_profile_id = $1
+        AND sender_user_profile_id = $2
+        AND status = 'pending'`,
+      [receiver_user_profile_id, sender_user_profile_id, status]
+    );
+    return result;
+  } catch (error) {
+    console.error('Error getting connection request:', error);
+    throw error;
+  }
+};
+//update friend request status
+const updateConnectionStatus = async (receiver_user_profile_id, sender_user_profile_id, newStatus) => {
+  try {
+    await db.none(
+      `UPDATE connection_requests
+      SET status = $1
+      WHERE receiver_user_profile_id = $2
+        AND sender_user_profile_id = $3`,
+      [newStatus, receiver_user_profile_id, sender_user_profile_id]
+    );
+  } catch (error) {
+    console.error('Error updating connection status:', error);
+    throw error;
+  }
+};
+const sendFriendRequest = async (friendRequestData) => {
+  try {
+    const { sender_user_profile_id, receiver_user_profile_id, status } = friendRequestData;
+
+    const newFriendRequest = await db.one(`
+      INSERT INTO connection_requests (sender_user_profile_id, receiver_user_profile_id, status)
+      VALUES ($1, $2, $3)
+      RETURNING *
+    `, [sender_user_profile_id, receiver_user_profile_id, status]);
+
+    return newFriendRequest;
+  } catch (error) {
+    throw error;
+  }
+};
 module.exports = {
   createProfile,
   getProfiles,
@@ -139,6 +187,9 @@ module.exports = {
   updateProfile,
   deleteProfile,
   getProfile,
-  getConnectedProfiles,
-  getFriendProfiles
+  getAcceptedProfiles,
+  getSingleConnectedProfiles,
+  updateConnectionStatus,
+  sendFriendRequest, 
+  getConnectedProfiles
 };
