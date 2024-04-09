@@ -71,7 +71,7 @@ VALUES
     (7, 4, 'accepted', CURRENT_TIMESTAMP),
     (8, 10, 'pending', CURRENT_TIMESTAMP);
     
-INSERT INTO posts (userprofile_id, post_description, goal_id)
+INSERT INTO posts (userprofile_id, post_description)
 VALUES
   (1, 'The golden sun slowly descended below the horizon, casting a warm glow across the tranquil beach. The gentle waves lapped against the shore, creating a soothing melody. As the sky transformed into a kaleidoscope of vibrant colors, I couldnt help but marvel at the breathtaking beauty of nature.'),
   (2, 'Indulge in the ultimate chocolate lovers dream with this delectable recipe for a moist and rich chocolate cake. The velvety smooth texture melts in your mouth, while the intense cocoa flavor tantalizes your taste buds. With each bite, youll savor the heavenly combination of decadent chocolate and a hint of vanilla. Whether its a special occasion or just a craving, this cake is sure to satisfy your sweet tooth.'),
