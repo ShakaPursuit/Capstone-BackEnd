@@ -196,7 +196,6 @@ module.exports = {
   deleteProfile,
   getProfile,
   getConnectedProfiles,
-  getFriendProfiles,
   getAcceptedProfiles,
   getSingleConnectedProfiles,
   updateConnectionStatus,
