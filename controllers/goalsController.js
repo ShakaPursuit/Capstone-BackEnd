@@ -19,9 +19,11 @@ const { authenticateToken } = require("../auth/auth");
 goals.get("/", authenticateToken, async (req, res) => {
   try {
     const { userprofile_id } = req.params;
-    // console.log(userprofile_id)
-    console.log("user profile id",userprofile_id);
-     console.log(req.user);
+    
+    // console.log(req.params)
+    // console.log("user profile id",userprofile_id);
+    // console.log(req.user);
+    
     if (userprofile_id !== req.user.userId.toString()) {
       return res
         .status(403)
@@ -61,6 +63,7 @@ goals.post(
   async (req, res) => {
     try {
       const createdGoal = await createGoal(req.body);
+      console.log(req.body)
       res.status(200).json(createdGoal);
     } catch (error) {
       res.status(500).json({ error: "Internal Server Error" });

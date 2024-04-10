@@ -7,10 +7,10 @@ const getGoals = async (userprofile_id) => {
       "SELECT * FROM goals WHERE userprofile_id=$1 ORDER BY target_date ASC",
       userprofile_id
     );
-    console.log("queries for all the goals: ",goals);
+    // console.log("queries for all the goals: ",goals);
     return goals;
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     return err;
   }
 };
@@ -50,7 +50,7 @@ const updateGoal = async (id, goal) => {
     );
     return updatedGoal;
   } catch (error) {
-    console.log(error)
+    // console.log(error)
     return error;
   }
 };

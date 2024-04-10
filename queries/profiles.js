@@ -28,7 +28,10 @@ const getProfiles = async () => {
 };
 const getProfile = async (id) => {
   try {
-    const user = await db.one("SELECT * FROM user_profiles WHERE userprofile_id=$1",id);
+    const user = await db.one(
+      "SELECT * FROM user_profiles WHERE userprofile_id=$1",
+      id
+    );
     return user;
   } catch (error) {
     throw new Error("Failed to create user: " + error.message);
@@ -48,10 +51,11 @@ const logInProfile = async (profile) => {
       profile.password_hash,
       loggedInProfile.password_hash
     );
-    if (!passwordMatch) {
-      return false;
-    }
-    return loggedInProfile;
+    // if (!passwordMatch) {
+    //   return false;
+    // }
+    return passwordMatch ? loggedInProfile : false;
+    // return loggedInProfile;
   } catch (error) {
     return error;
   }
@@ -84,7 +88,9 @@ const deleteProfile = async (id) => {
     return error;
   }
 };
+
 const getConnectedProfiles = async (receiver_user_profile_id,sender_user_profile_id, status) => {
+
   try {
     const friendProfiles = await db.any(
       `SELECT sender_profiles.*
@@ -100,7 +106,7 @@ const getConnectedProfiles = async (receiver_user_profile_id,sender_user_profile
       JOIN user_profiles AS receiver_profiles ON connection_requests.receiver_user_profile_id = receiver_profiles.userprofile_id
       WHERE sender_profiles.userprofile_id = $1
         AND connection_requests.status = 'pending'`,
-      [receiver_user_profile_id, sender_user_profile_id,status]
+      [receiver_user_profile_id, sender_user_profile_id, status]
     );
     return friendProfiles;
   } catch (error) {
@@ -108,7 +114,9 @@ const getConnectedProfiles = async (receiver_user_profile_id,sender_user_profile
     throw error;
   }
 };
+
 const getAcceptedProfiles = async (receiver_user_profile_id,sender_user_profile_id, status) => {
+
   try {
     const connectProfiles = await db.any(
       `SELECT sender_profiles.*
@@ -124,7 +132,7 @@ const getAcceptedProfiles = async (receiver_user_profile_id,sender_user_profile_
       JOIN user_profiles AS receiver_profiles ON connection_requests.receiver_user_profile_id = receiver_profiles.userprofile_id
       WHERE sender_profiles.userprofile_id = $1
         AND connection_requests.status = 'accepted'`,
-      [receiver_user_profile_id, sender_user_profile_id,status]
+      [receiver_user_profile_id, sender_user_profile_id, status]
     );
     return connectProfiles;
   } catch (error) {
@@ -187,6 +195,8 @@ module.exports = {
   updateProfile,
   deleteProfile,
   getProfile,
+  getConnectedProfiles,
+  getFriendProfiles,
   getAcceptedProfiles,
   getSingleConnectedProfiles,
   updateConnectionStatus,

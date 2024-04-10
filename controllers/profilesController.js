@@ -24,6 +24,9 @@ const { checkFirstName, checkLastName } = require("../validations/checkName");
 const goalsController = require("./goalsController");
 profiles.use("/:userprofile_id/goals", goalsController);
 
+const userPostsController = require("./userPostsController")
+profiles.use("/:userprofile_id/posts", userPostsController)
+
 const { authenticateToken } = require("../auth/auth");
 
 // Get ALL profiles
@@ -50,7 +53,7 @@ profiles.get("/:id", async (req, res) => {
 profiles.post("/", async (req, res) => {
   try {
     const newProfile = await createProfile(req.body);
-    console.log("new profile: ", newProfile);
+    // console.log("new profile: ", newProfile);
     const token = jwt.sign(
       { userId: newProfile.userprofile_id, username: newProfile.username },
       secret
