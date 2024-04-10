@@ -106,7 +106,7 @@ const getConnectedProfiles = async (receiver_user_profile_id,sender_user_profile
   } catch (error) {
     console.log(error);
     throw error;
-  }
+  } 
 };
 const getAcceptedProfiles = async (receiver_user_profile_id,sender_user_profile_id, status) => {
   try {
