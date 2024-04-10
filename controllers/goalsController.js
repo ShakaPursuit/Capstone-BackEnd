@@ -19,9 +19,11 @@ const { authenticateToken } = require("../auth/auth");
 goals.get("/", authenticateToken, async (req, res) => {
   try {
     const { userprofile_id } = req.params;
-    console.log(req.params)
+    
+    // console.log(req.params)
     // console.log("user profile id",userprofile_id);
     // console.log(req.user);
+    
     if (userprofile_id !== req.user.userId.toString()) {
       return res
         .status(403)

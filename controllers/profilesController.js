@@ -12,8 +12,11 @@ const {
   updateProfile,
   deleteProfile,
   getProfile,
+  getAcceptedProfiles,
   getConnectedProfiles,
-  getFriendProfiles,
+  getSingleConnectedProfiles,
+  updateConnectionStatus,
+  sendFriendRequest
 } = require("../queries/profiles");
 
 const { checkFirstName, checkLastName } = require("../validations/checkName");
@@ -126,8 +129,10 @@ profiles.delete("/:userprofile_id", async (req, res) => {
   }
 });
 
-// Route to get/show your friends (connected to friends)
-profiles.get("/connections/:receiver_user_profile_id", async (req, res) => {
+
+
+//show pending friend requests
+profiles.get("/:receiver_user_profile_id/connections", async (req, res) => {
   try {
     const { receiver_user_profile_id } = req.params;
     const result = await getConnectedProfiles(receiver_user_profile_id);
@@ -138,18 +143,74 @@ profiles.get("/connections/:receiver_user_profile_id", async (req, res) => {
   }
 });
 //Route to get your friend requests
-profiles.get(
-  "/true/connections/:receiver_user_profile_id",
-  async (req, res) => {
-    try {
-      const { receiver_user_profile_id } = req.params;
-      const result = await getFriendProfiles(receiver_user_profile_id);
-      res.status(200).json(result);
-    } catch (error) {
-      console.error("Error getting connection requests:", error);
-      res.status(500).json({ error: "Internal Server Error" });
-    }
+// profiles.get("/true/connections/:receiver_user_profile_id", async (req, res) => {
+//   try {
+//     const {  receiver_user_profile_id} = req.params;
+//     const result = await getAcceptedProfiles( receiver_user_profile_id);
+//     res.status(200).json(result);
+//   } catch (error) {
+//     console.error('Error getting connection requests:', error);
+//     res.status(500).json({ error: 'Internal Server Error' });
+//   }
+// });
+//show accepted friend request
+profiles.get("/:receiver_user_profile_id/connections/accepted", async (req, res) => {
+  try {
+    const {  receiver_user_profile_id ,status} = req.params;
+    // const values = [id];
+    const result = await getAcceptedProfiles( receiver_user_profile_id,status);
+    res.status(200).json(result);
+  } catch (error) {
+    console.error('Error getting connection requests:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
-);
+});
+//show pending friend request
+profiles.get("/:receiver_user_profile_id/connections/:sender_user_profile_id", async (req, res) => {
+  try {
+    const {  receiver_user_profile_id ,sender_user_profile_id,status} = req.params;
+    // const values = [id];
+    const result = await getSingleConnectedProfiles( receiver_user_profile_id,sender_user_profile_id,status);
+    res.status(200).json(result);
+  } catch (error) {
+    console.error('Error getting connection requests:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+//update friend request status
+profiles.put("/:receiver_user_profile_id/connections/:sender_user_profile_id", async (req, res) => {
+  try {
+    const { receiver_user_profile_id, sender_user_profile_id } = req.params;
+    const { status } = req.body;
+
+    // Update the connection status
+    await updateConnectionStatus(receiver_user_profile_id, sender_user_profile_id, status);
+
+    res.status(200).json({ message: 'Connection status updated successfully' });
+  } catch (error) {
+    console.error('Error updating connection status:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+profiles.post("/:receiver_user_profile_id/connections/", async (req, res) => {
+  try {
+    const { receiver_user_profile_id } = req.params;
+    const { sender_user_profile_id, status } = req.body;
+
+    const friendRequestData = {
+      sender_user_profile_id: parseInt(sender_user_profile_id),
+      receiver_user_profile_id: parseInt(receiver_user_profile_id),
+      status
+    };
+
+    const newFriendRequest = await sendFriendRequest(friendRequestData);
+
+    res.status(200).json(newFriendRequest);
+  } catch (error) {
+    console.error('Error sending friend request:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 
 module.exports = profiles;
