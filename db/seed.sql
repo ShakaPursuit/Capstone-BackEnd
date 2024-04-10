@@ -71,13 +71,14 @@ VALUES
     (7, 4, 'accepted', CURRENT_TIMESTAMP),
     (8, 10, 'pending', CURRENT_TIMESTAMP);
     
-INSERT INTO posts (userprofile_id, post_description, goal_id)
+INSERT INTO posts (userprofile_id, post_description)
 VALUES
   (1, 'The golden sun slowly descended below the horizon, casting a warm glow across the tranquil beach. The gentle waves lapped against the shore, creating a soothing melody. As the sky transformed into a kaleidoscope of vibrant colors, I couldnt help but marvel at the breathtaking beauty of nature.'),
   (2, 'Indulge in the ultimate chocolate lovers dream with this delectable recipe for a moist and rich chocolate cake. The velvety smooth texture melts in your mouth, while the intense cocoa flavor tantalizes your taste buds. With each bite, youll savor the heavenly combination of decadent chocolate and a hint of vanilla. Whether its a special occasion or just a craving, this cake is sure to satisfy your sweet tooth.'),
   (3, 'Embarking on a thrilling hiking adventure in the majestic mountains was an experience like no other. The crisp mountain air invigorated my senses as I navigated through rugged trails and lush forests. With every step, the breathtaking panoramic views unfolded before me, revealing natures awe-inspiring beauty. As I reached the summit, a sense of accomplishment washed over me, knowing that I had conquered the challenges and witnessed natures raw grandeur.'),
   (4, 'Immersing myself in the captivating world of literature, I recently delved into a thought-provoking book that left an indelible impact on my mind. The eloquent prose and intricate storytelling transported me to a different time and place. The complex characters and their emotions resonated with me, evoking a myriad of feelings. This literary masterpiece challenged my perspectives and ignited a passion for exploration and self-reflection.'),
-  (5, 'Mastering the art of effective time management is essential in todays fast-paced world. With a few simple strategies, you can maximize productivity and achieve a healthy work-life balance. Prioritizing tasks, setting realistic goals, and utilizing productivity tools can help you stay focused and organized. Remember to allocate time for self-care and relaxation, as rejuvenation is equally important for maintaining long-term productivity. With proper time management, you can unlock your full potential and accomplish more in all areas of life.');
+  (5, 'Mastering the art of effective time management is essential in todays fast-paced world. With a few simple strategies, you can maximize productivity and achieve a healthy work-life balance. Prioritizing tasks, setting realistic goals, and utilizing productivity tools can help you stay focused and organized. Remember to allocate time for self-care and relaxation, as rejuvenation is equally important for maintaining long-term productivity. With proper time management, you can unlock your full potential and accomplish more in all areas of life.'),
+  (1, '(2)The golden sun slowly descended below the horizon, casting a warm glow across the tranquil beach. The gentle waves lapped against the shore, creating a soothing melody. As the sky transformed into a kaleidoscope of vibrant colors, I couldnt help but marvel at the breathtaking beauty of nature.');
 
 INSERT INTO comments (description, userprofile_id, post_id )
 VALUES 
@@ -90,7 +91,13 @@ VALUES
 INSERT INTO likes (userprofile_id, post_id )
 VALUES 
 (1,1),
-(2,2),
+(2,1),
+(3,1),
+(1,5),
+(2,5),
+(2,4),
+(3,4),
 (3,3),
 (4,4),
+(5,4),
 (5,5);
