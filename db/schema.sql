@@ -1,9 +1,9 @@
-DROP DATABASE IF EXISTS goalhive_app;
+DROP DATABASE IF EXISTS capstone_backend;
 
-CREATE DATABASE goalhive_app;
+CREATE DATABASE capstone_backend;
 
 
-\c goalhive_app;
+\c capstone_backend;
 CREATE TABLE user_profiles
 (
     userprofile_id SERIAL PRIMARY KEY,
