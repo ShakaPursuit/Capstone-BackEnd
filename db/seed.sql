@@ -1,6 +1,6 @@
 \c goalhive_app
 
--- Seed data for the user_profiles table
+
 INSERT INTO user_profiles
     (username, email, password_hash, firstname, lastname, profile_img, age, gender, bio)
 VALUES
@@ -14,7 +14,7 @@ VALUES
     ('llettings', 'lisalettings@aol.com', 'hashed_password08', 'Lisa', 'Lettings', 'profile008.png', 23, 'female', 'Bio info for Lisa'),
     ('patTcake', 'pmoncake@email.com', 'hashed_password09', 'Pat', 'Moncake', 'profile009.png', 33, '', 'Bio info for Pat'),
     ('topofdarock', 'rockybordino@gmail.com', 'hashed_password10', 'Rocky', 'Bordino', 'profile010.png', 45, 'male', 'Bio info for Rocky');
--- Seed data for the interests table
+
 INSERT INTO interests
     (name)
 VALUES
@@ -30,7 +30,7 @@ VALUES
     ('Art'),
     ('Music');
 
--- Seed data for the goals table
+
 INSERT INTO goals
     (name, description, completed, target_date, created_at, userprofile_id, interest_id )
 VALUES
