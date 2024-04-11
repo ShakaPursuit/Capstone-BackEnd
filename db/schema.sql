@@ -32,8 +32,6 @@ CREATE TABLE goals
     completed BOOLEAN,
     target_date DATE NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    -- user1_prgress INTEGER DEFAULT NULL, 
-    -- user2_prgress INTEGER DEFAULT NULL,
     userprofile_id INTEGER REFERENCES user_profiles(userprofile_id) ON DELETE CASCADE,
     interest_id INTEGER REFERENCES interests(interest_id)
 );
@@ -69,6 +67,6 @@ CREATE TABLE comments (
 
 CREATE TABLE likes (
     userprofile_id INTEGER REFERENCES user_profiles(userprofile_id),
-    post_id INTEGER REFERENCES posts(post_id),
-    PRIMARY KEY (userprofile_id, post_id)
+    post_id INTEGER REFERENCES posts(post_id)
+
 );
