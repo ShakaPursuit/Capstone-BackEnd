@@ -1,13 +1,17 @@
-{
+# Capstone - BackEnd Server
+
+`npm init -y`
+`npm i express pg-promise cors dotenv`
+`npm i jsonwebtoken bcrypt`
+
+```{
   "name": "capstone-backend",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
-    "db:init": "psql -U postgres -f db/schema.sql",
-    "db:seed": "psql -U postgres -f db/seed.sql"
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -26,7 +30,7 @@
     "dotenv": "^16.4.4",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.2",
-    "morgan": "^1.10.0",
     "pg-promise": "^11.5.4"
   }
 }
+```
