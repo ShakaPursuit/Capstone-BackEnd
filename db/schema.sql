@@ -1,9 +1,9 @@
-DROP DATABASE IF EXISTS capstone_backend;
+DROP DATABASE IF EXISTS Capstone_backend;
 
-CREATE DATABASE capstone_backend;
+CREATE DATABASE Capstone_backend;
 
 
-\c capstone_backend;
+\c Capstone_backend;
 CREATE TABLE user_profiles
 (
     userprofile_id SERIAL PRIMARY KEY,
