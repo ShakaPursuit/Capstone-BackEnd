@@ -54,7 +54,7 @@ profiles.post("/", async (req, res) => {
   try {
     const newProfile = await createProfile(req.body);
 
-    console.log("new profile: ", newProfile);
+    // console.log("new profile: ", newProfile);
     const token = jwt.sign(
       { userId: newProfile.userprofile_id, username: newProfile.username },
       secret

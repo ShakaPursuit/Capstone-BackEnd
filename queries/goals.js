@@ -55,6 +55,18 @@ const updateGoal = async (id, goal) => {
   }
 };
 
+const markGoalAsCompleted = async (id, goalId) => {
+  try {
+    const { completed } = goalId;
+    const updateGoalToComplete = await db.query(
+      "UPDATE goals SET completed = $1 WHERE goal_id = $2",
+      [true, id]
+    );
+    return updateGoalToComplete;
+  } catch (error) {
+    return error;
+  }
+};
 const deleteGoal = async (id) => {
   try {
     const deletedGoal = await db.one(
@@ -67,4 +79,4 @@ const deleteGoal = async (id) => {
   }
 };
 
-module.exports = { getGoals, getGoal, createGoal, updateGoal, deleteGoal };
+module.exports = { getGoals, getGoal, createGoal, updateGoal, deleteGoal, markGoalAsCompleted };

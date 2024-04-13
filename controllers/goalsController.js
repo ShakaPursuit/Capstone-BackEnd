@@ -9,6 +9,7 @@ const {
   createGoal,
   updateGoal,
   deleteGoal,
+  markGoalAsCompleted
 } = require("../queries/goals");
 
 const { checkGoals, checkTargets } = require("../validations/checkGoals");
@@ -96,5 +97,16 @@ goals.delete("/:id", authenticateToken, async (req, res) => {
     res.status(404).json({ error: "error" });
   }
 });
+goals.patch("/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const updateResult = await markGoalAsCompleted(id, req.body);
+    res.json({ updateResult,message: "Goal status updated successfully" });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to update goal status" });
+  }
+});
+
 
 module.exports = goals;

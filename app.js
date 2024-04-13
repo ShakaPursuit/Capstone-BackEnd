@@ -13,7 +13,7 @@ const allgoalsController = require("./controllers/allgoalsController");
 app.use(cors());
 app.use(express.json());
 app.use("/profiles", profilesController);
-// app.use("/profiles/:id/goals", goalsController);
+app.use("/profiles/:id/goals", goalsController);
 app.use("/interests", interestsController);
 app.use("/friendrequest", friendsController);
 app.use("/posts", postsController);
