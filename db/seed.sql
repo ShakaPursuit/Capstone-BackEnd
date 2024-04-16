@@ -56,7 +56,7 @@ VALUES
     (3, 6),
     (4, 1),
     (4, 4),
-    (4, 1);
+
 
 INSERT INTO connection_requests
     (sender_user_profile_id, receiver_user_profile_id, status, timestamp)
@@ -73,24 +73,29 @@ VALUES
     
 INSERT INTO posts (userprofile_id, post_description)
 VALUES
-  (1, 'Just completed my first project in my web development course! Feeling excited to continue learning and building.'),
-  (2, 'Reached the summit of Mount Everest today! It was a challenging journey, but the view from the top was absolutely worth it.'),
+  (1, 'Just started a web development course on Udemy! 🚀 It''s called "The Complete Web Developer Course 2.0" and it has over 40 hours of content. I''m excited to learn HTML, CSS, JavaScript, Node.js, and more! #webdevelopment #udemy'),
+  (2, 'I just finished hiking 🧗🏾 the Grand Canyon and it was an incredible experience! The views 🌄 were breathtaking and the hike was challenging but rewarding. I can''t wait to plan my next hiking adventure. #hiking #grandcanyon'),
   (3, 'Attended a photography workshop and learned some amazing techniques for capturing stunning landscapes.'),
   (4, 'Successfully grew my first batch of vegetables in my indoor garden! Fresh produce straight from my apartment.'),
-  (5, 'Finished reading "Atomic Habits" by James Clear. Highly recommend it for anyone looking to improve their habits and achieve their goals.'),
-  (1, 'Started learning Python today. Excited to dive into the world of programming and automation!'),
-  (2, 'Visited a local art gallery and found inspiration for my next painting project.'),
-  (3, 'Joined a hiking group and explored some beautiful trails in the nearby national park.'),
+  (5, 'Finished reading "Atomic Habits" 📚 by James Clear. Highly recommend it for anyone looking to improve their habits and achieve their goals.'),
+  (6, 'I just started a new job as a web developer 💻 and I''m excited to put my skills to the test. I''ll be working on a variety of projects and I''m looking forward to learning from my colleagues. #webdevelopment #newjob'),
+  (7, 'I just finished a book called "The Power of Habit" and it was a great read. The book explores how habits are formed and how they can be changed. I''m excited to apply what I''ve learned to my own habits. #habits #selfimprovement'),
+  (1, 'I just finished a course on digital marketing and I''m excited to start implementing what I''ve learned. I learned about SEO, social media marketing, and email marketing. I''m looking forward to seeing the results of my efforts. #digitalmarketing #seo'),
   (4, 'Attended a finance seminar and gained valuable insights into managing my investments and saving for the future.'),
   (5, 'Listened to an inspiring podcast about entrepreneurship. Feeling motivated to pursue my business ideas.');
 
 INSERT INTO comments (description, userprofile_id, post_id )
 VALUES 
-('This is awesome', 1, 1),
-('This is so cool', 2, 1),
-('This is awesome', 3, 3),
-('This is awesome', 4, 4),
-('This is awesome', 5, 5);
+('Great choice! I''ve heard amazing things about that course.', 2, 1),
+('Wow, what an achievement! Congratulations!', 1, 2),
+('I''m interested in attending one. Any recommendations?', 5, 3),
+('That''s impressive! Any tips for beginners?', 3, 4),
+('I loved that book too! Have you read his other works?', 4, 5),
+('Congrats on the new job! Wishing you success in your new role.', 2, 6),
+('The Power of Habit is a game-changer. How are you applying it to your life?', 3, 7),
+('Digital marketing is fascinating! What aspect did you find most intriguing?', 5, 8),
+('Sounds enlightening! Any key takeaways you''d like to share?', 4, 9),
+('Entrepreneurship is a journey. What''s your business idea?', 1, 10);
 
 INSERT INTO likes (userprofile_id, post_id )
 VALUES 
