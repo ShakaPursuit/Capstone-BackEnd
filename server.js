@@ -333,169 +333,94 @@
 // });
 
 // const express= require('express')
-
-
-
-
-
-//90 percent almost there
-// const app = require("./app");
-// const http = require("http");
-// require("dotenv").config();
-
-// const {Server} = require("socket.io");
-// const cors = require("cors");
-// const server = http.createServer(app);
-// app.use(cors());
-
-// const io = new Server(server
-//   , {
-//   cors: {
-//     origin: ["http://localhost:5173"],
-//     methods: ["GET", "POST"],
-//   },
-// }
-// );
-// const PORT = 3005;
-// const PORT2 = 3000;
-
-
-// const roomMessages = {};
-
-// io.on('connection', (socket) => {
-//   console.log('New client connected');
-
-//   socket.on('joinRoom', (roomID, username, userID) => {
-//     socket.join(roomID);
-
-//     if (!roomMessages[roomID]) {
-//       roomMessages[roomID] = []; // Initialize roomMessages[roomID] as an empty array
-//     }
-
-//     const userJoinMessage = `${username} has joined the room`;
-//     roomMessages[roomID].push(userJoinMessage);
-
-//     const usersInRoom = io.sockets.adapter.rooms.get(roomID);
-//     if (usersInRoom.size === 2) {
-//       io.to(roomID).emit('roomJoined', roomMessages[roomID]);
-//     }
-
-//     io.to(roomID).emit('message', userJoinMessage);
-//      console.log(roomMessages);
-//   });
-
-//   socket.on('message', (message) => {
-//     socket.to(message.room).emit('message', message);
-//     const roomID = Object.keys(socket.rooms)[0];
-//     const username = getUsernameFromSocket(socket);
-
-//     if (!roomMessages[roomID]) {
-//       roomMessages[roomID] = []; // Initialize roomMessages[roomID] as an empty array
-//     }
-
-//     const userMessage = `${username}: ${message}`;
-//     roomMessages[roomID].push(userMessage);
-//     io.to(roomID).emit('message', userMessage.data); // Broadcast message to all clients in the room
-//     io.to(roomID).emit('roomMessage', roomMessages[roomID]);
-//     console.log(`New message: ${userMessage}`);
-//   });
-
-//   socket.on('leaveRoom', (roomID, username) => {
-//     socket.leave(roomID);
-
-//     if (!roomMessages[roomID]) {
-//       roomMessages[roomID] = []; // Initialize roomMessages[roomID] as an empty array
-//     }
-
-//     const userLeaveMessage = `${username} has left the room`;
-//     roomMessages[roomID].push(userLeaveMessage);
-//     io.to(roomID).emit('message', userLeaveMessage);
-//   });
-
-//   socket.on('disconnect', () => {
-//     console.log('Client disconnected');
-//   });
-// });
-
-// function getUsernameFromSocket(socket) {
-//   const roomID = Object.keys(socket.rooms)[1];
-//   const username = roomID; // Extract the username from the roomID
-//   return username;
-// }
-
-// app.listen(PORT, () => {
-//   console.log(`Server is running on port: ${PORT}`);
-// });
-
-// app.use(cors());
-// server.listen(PORT2, () => {
-//   console.log(`Server is running on port ${PORT2}`);
-// });
-
-
-const express = require("express");
-const app = require('./app')
+const app = require("./app");
 const http = require("http");
-const cors = require("cors");
-const { Server } = require("socket.io");
-
-
 require("dotenv").config();
+app.use(express())
+const {Server} = require("socket.io");
 
-
-
-// Express app configuration
-app.use(cors());
-app.use(express.json());
-// const express = require("express");
-// const app = require('./app')
-// const http = require("http");
-// const cors = require("cors");
-// const { Server } = require("socket.io");
-
-
-// require("dotenv").config();
-
-
-
-// // Express app configuration
-// app.use(cors());
-
+const cors = require("cors");
 const server = http.createServer(app);
+app.use(cors());
 
-// Socket.IO configuration
-const io = new Server(server, {
+const io = socketIO(server
+  , {
   cors: {
-    origin: "http://localhost:5174",
-    methods: ["GET", "POST"],
+    origin: ["http://localhost:5173"],
   },
+}
+);
+const PORT = 3005;
+const PORT2 = 3000;
+
+
+const roomMessages = {};
+
+io.on('connection', (socket) => {
+  console.log('New client connected');
+
+  socket.on('joinRoom', (roomID, username, userID) => {
+    socket.join(roomID);
+
+    if (!roomMessages[roomID]) {
+      roomMessages[roomID] = []; // Initialize roomMessages[roomID] as an empty array
+    }
+
+    const userJoinMessage = `${username} has joined the room`;
+    roomMessages[roomID].push(userJoinMessage);
+
+    const usersInRoom = io.sockets.adapter.rooms.get(roomID);
+    if (usersInRoom.size === 2) {
+      io.to(roomID).emit('roomJoined', roomMessages[roomID]);
+    }
+
+    io.to(roomID).emit('message', userJoinMessage);
+     console.log(roomMessages);
+  });
+
+  socket.on('message', (message) => {
+    const roomID = Object.keys(socket.rooms)[0];
+    const username = getUsernameFromSocket(socket);
+
+    if (!roomMessages[roomID]) {
+      roomMessages[roomID] = []; // Initialize roomMessages[roomID] as an empty array
+    }
+
+    const userMessage = `${username}: ${message}`;
+    roomMessages[roomID].push(userMessage);
+    io.to(roomID).emit('message', userMessage.data); // Broadcast message to all clients in the room
+    io.to(roomID).emit('roomMessage', roomMessages[roomID]);
+    console.log(`New message: ${userMessage}`);
+  });
+
+  socket.on('leaveRoom', (roomID, username) => {
+    socket.leave(roomID);
+
+    if (!roomMessages[roomID]) {
+      roomMessages[roomID] = []; // Initialize roomMessages[roomID] as an empty array
+    }
+
+    const userLeaveMessage = `${username} has left the room`;
+    roomMessages[roomID].push(userLeaveMessage);
+    io.to(roomID).emit('message', userLeaveMessage);
+  });
+
+  socket.on('disconnect', () => {
+    console.log('Client disconnected');
+  });
 });
-const PORT = process.env.PORT;
-const PORT2= process.env.PORT2
 
-io.on("connection", (socket) => {
-  console.log(`User Connected: ${socket.id}`);
-
-  socket.on("join_room", (data) => {
-    socket.join(data);
-    console.log(`User with ID: ${socket.id} joined room: ${data}`);
-  });
-
-  socket.on("send_message", (data) => {
-    socket.to(data.room).emit("receive_message", data);
-  });
-
-  socket.on("disconnect", () => {
-    console.log("User Disconnected", socket.id);
-  });
-});
-
-// Start the server
+function getUsernameFromSocket(socket) {
+  const roomID = Object.keys(socket.rooms)[1];
+  const username = roomID; // Extract the username from the roomID
+  return username;
+}
 
 app.listen(PORT, () => {
   console.log(`Server is running on port: ${PORT}`);
 });
 
+app.use(cors());
 server.listen(PORT2, () => {
-  console.log(`Server is running on port: ${PORT2}`);
+  console.log(`Server is running on port ${PORT2}`);
 });
