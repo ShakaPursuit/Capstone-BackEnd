@@ -1,0 +1,11 @@
+services:
+  - name: my-app
+    env:
+      - key: PORT
+        value: "5009" # Specify the port your app listens on
+      - key: PORT2
+        value: "3002" # Specify the proxy port for WebSocket connections
+    routes:
+      - path: /
+        priority: 10
+        type: h2forward
