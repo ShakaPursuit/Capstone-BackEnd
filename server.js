@@ -346,7 +346,8 @@ app.use(cors());
 const io = socketIO(server
   , {
   cors: {
-    origin: ["http://localhost:5173"],
+    origin: "https://main--zesty-hotteok-c8a3b0.netlify.app",
+    methods: ["GET", "POST"],
   },
 }
 );
