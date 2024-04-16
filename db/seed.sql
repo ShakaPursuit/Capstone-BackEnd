@@ -73,12 +73,16 @@ VALUES
     
 INSERT INTO posts (userprofile_id, post_description)
 VALUES
-  (1, 'The golden sun slowly descended below the horizon, casting a warm glow across the tranquil beach. The gentle waves lapped against the shore, creating a soothing melody. As the sky transformed into a kaleidoscope of vibrant colors, I couldnt help but marvel at the breathtaking beauty of nature.'),
-  (2, 'Indulge in the ultimate chocolate lovers dream with this delectable recipe for a moist and rich chocolate cake. The velvety smooth texture melts in your mouth, while the intense cocoa flavor tantalizes your taste buds. With each bite, youll savor the heavenly combination of decadent chocolate and a hint of vanilla. Whether its a special occasion or just a craving, this cake is sure to satisfy your sweet tooth.'),
-  (3, 'Embarking on a thrilling hiking adventure in the majestic mountains was an experience like no other. The crisp mountain air invigorated my senses as I navigated through rugged trails and lush forests. With every step, the breathtaking panoramic views unfolded before me, revealing natures awe-inspiring beauty. As I reached the summit, a sense of accomplishment washed over me, knowing that I had conquered the challenges and witnessed natures raw grandeur.'),
-  (4, 'Immersing myself in the captivating world of literature, I recently delved into a thought-provoking book that left an indelible impact on my mind. The eloquent prose and intricate storytelling transported me to a different time and place. The complex characters and their emotions resonated with me, evoking a myriad of feelings. This literary masterpiece challenged my perspectives and ignited a passion for exploration and self-reflection.'),
-  (5, 'Mastering the art of effective time management is essential in todays fast-paced world. With a few simple strategies, you can maximize productivity and achieve a healthy work-life balance. Prioritizing tasks, setting realistic goals, and utilizing productivity tools can help you stay focused and organized. Remember to allocate time for self-care and relaxation, as rejuvenation is equally important for maintaining long-term productivity. With proper time management, you can unlock your full potential and accomplish more in all areas of life.'),
-  (1, '(2)The golden sun slowly descended below the horizon, casting a warm glow across the tranquil beach. The gentle waves lapped against the shore, creating a soothing melody. As the sky transformed into a kaleidoscope of vibrant colors, I couldnt help but marvel at the breathtaking beauty of nature.');
+  (1, 'Just completed my first project in my web development course! Feeling excited to continue learning and building.'),
+  (2, 'Reached the summit of Mount Everest today! It was a challenging journey, but the view from the top was absolutely worth it.'),
+  (3, 'Attended a photography workshop and learned some amazing techniques for capturing stunning landscapes.'),
+  (4, 'Successfully grew my first batch of vegetables in my indoor garden! Fresh produce straight from my apartment.'),
+  (5, 'Finished reading "Atomic Habits" by James Clear. Highly recommend it for anyone looking to improve their habits and achieve their goals.'),
+  (1, 'Started learning Python today. Excited to dive into the world of programming and automation!'),
+  (2, 'Visited a local art gallery and found inspiration for my next painting project.'),
+  (3, 'Joined a hiking group and explored some beautiful trails in the nearby national park.'),
+  (4, 'Attended a finance seminar and gained valuable insights into managing my investments and saving for the future.'),
+  (5, 'Listened to an inspiring podcast about entrepreneurship. Feeling motivated to pursue my business ideas.');
 
 INSERT INTO comments (description, userprofile_id, post_id )
 VALUES 
