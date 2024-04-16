@@ -466,7 +466,7 @@ const server = http.createServer(app);
 // Socket.IO configuration
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5174",
+    origin: "https://main--zesty-hotteok-c8a3b0.netlify.app",
     methods: ["GET", "POST"],
   },
 });
