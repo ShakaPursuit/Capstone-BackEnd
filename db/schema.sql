@@ -50,12 +50,12 @@ CREATE TABLE connection_requests
     status TEXT,
     timestamp TIMESTAMP
 );
+
 CREATE TABLE posts (
     post_id SERIAL PRIMARY KEY,
     post_img BYTEA DEFAULT NULL,
     post_description VARCHAR(600) DEFAULT NULL,
-    userprofile_id INTEGER REFERENCES user_profiles(userprofile_id),
-     goal_id INTEGER REFERENCES goals(goal_id)
+    userprofile_id INTEGER REFERENCES user_profiles(userprofile_id)
 );
 
 CREATE TABLE comments (

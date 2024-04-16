@@ -8,18 +8,15 @@ const {
   deletePost,
   createLikes,
   deleteLikes,
+  getComments,
+  getComment,
 } = require("../queries/posts");
-
-// const userPostsController = require("./userPostsController")
-// posts.use("/:userprofile_id/posts", userPostsController)
 
 const { authenticateToken } = require("../auth/auth");
 
 // Get all posts from users
 posts.get("/", async (req, res) => {
   try {
-    // const { post_id } = req.params
-
     const posts = await getAllPosts();
     res.status(200).json(posts);
   } catch (err) {
@@ -44,7 +41,6 @@ posts.get("/:id", authenticateToken, async (req, res) => {
 posts.post("/", authenticateToken, async (req, res) => {
   try {
     const createdPost = await createPost(req.body);
-    // console.log(req.body)
     res.status(200).json(createdPost);
   } catch (error) {
     res.status(500).json({ error: "Post Server Error" });
@@ -67,7 +63,7 @@ posts.delete("/unlike", async (req, res) => {
   try {
     const { userprofile_id, post_id } = req.body;
     const unlike = await deleteLikes(userprofile_id, post_id);
-    res.status(200).json({success: "Successfully deleted like"});
+    res.status(200).json({ success: "Successfully deleted like" });
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
   }
@@ -77,7 +73,6 @@ posts.delete("/unlike", async (req, res) => {
 posts.put("/:id", authenticateToken, async (req, res) => {
   try {
     const { id } = req.params;
-    // const { post_img, description } = req.body;
     const updatedPost = await updatePost(id, req.body);
     res.status(200).json(updatedPost);
   } catch (error) {
@@ -93,6 +88,17 @@ posts.delete("/:id", authenticateToken, async (req, res) => {
     res.status(200).json({ success: "Successfully deleted post" });
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+posts.get("/:id/comments", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const comments = await getComments(id);
+    res.status(200).json(comments);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: "Server Error" });
   }
 });
 

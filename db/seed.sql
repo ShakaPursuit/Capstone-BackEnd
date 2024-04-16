@@ -56,7 +56,7 @@ VALUES
     (3, 6),
     (4, 1),
     (4, 4),
-    (4, 1);
+
 
 INSERT INTO connection_requests
     (sender_user_profile_id, receiver_user_profile_id, status, timestamp)
@@ -73,20 +73,29 @@ VALUES
     
 INSERT INTO posts (userprofile_id, post_description)
 VALUES
-  (1, 'The golden sun slowly descended below the horizon, casting a warm glow across the tranquil beach. The gentle waves lapped against the shore, creating a soothing melody. As the sky transformed into a kaleidoscope of vibrant colors, I couldnt help but marvel at the breathtaking beauty of nature.'),
-  (2, 'Indulge in the ultimate chocolate lovers dream with this delectable recipe for a moist and rich chocolate cake. The velvety smooth texture melts in your mouth, while the intense cocoa flavor tantalizes your taste buds. With each bite, youll savor the heavenly combination of decadent chocolate and a hint of vanilla. Whether its a special occasion or just a craving, this cake is sure to satisfy your sweet tooth.'),
-  (3, 'Embarking on a thrilling hiking adventure in the majestic mountains was an experience like no other. The crisp mountain air invigorated my senses as I navigated through rugged trails and lush forests. With every step, the breathtaking panoramic views unfolded before me, revealing natures awe-inspiring beauty. As I reached the summit, a sense of accomplishment washed over me, knowing that I had conquered the challenges and witnessed natures raw grandeur.'),
-  (4, 'Immersing myself in the captivating world of literature, I recently delved into a thought-provoking book that left an indelible impact on my mind. The eloquent prose and intricate storytelling transported me to a different time and place. The complex characters and their emotions resonated with me, evoking a myriad of feelings. This literary masterpiece challenged my perspectives and ignited a passion for exploration and self-reflection.'),
-  (5, 'Mastering the art of effective time management is essential in todays fast-paced world. With a few simple strategies, you can maximize productivity and achieve a healthy work-life balance. Prioritizing tasks, setting realistic goals, and utilizing productivity tools can help you stay focused and organized. Remember to allocate time for self-care and relaxation, as rejuvenation is equally important for maintaining long-term productivity. With proper time management, you can unlock your full potential and accomplish more in all areas of life.'),
-  (1, '(2)The golden sun slowly descended below the horizon, casting a warm glow across the tranquil beach. The gentle waves lapped against the shore, creating a soothing melody. As the sky transformed into a kaleidoscope of vibrant colors, I couldnt help but marvel at the breathtaking beauty of nature.');
+  (1, 'Just started a web development course on Udemy! 🚀 It''s called "The Complete Web Developer Course 2.0" and it has over 40 hours of content. I''m excited to learn HTML, CSS, JavaScript, Node.js, and more! #webdevelopment #udemy'),
+  (2, 'I just finished hiking 🧗🏾 the Grand Canyon and it was an incredible experience! The views 🌄 were breathtaking and the hike was challenging but rewarding. I can''t wait to plan my next hiking adventure. #hiking #grandcanyon'),
+  (3, 'Attended a photography workshop and learned some amazing techniques for capturing stunning landscapes.'),
+  (4, 'Successfully grew my first batch of vegetables in my indoor garden! Fresh produce straight from my apartment.'),
+  (5, 'Finished reading "Atomic Habits" 📚 by James Clear. Highly recommend it for anyone looking to improve their habits and achieve their goals.'),
+  (6, 'I just started a new job as a web developer 💻 and I''m excited to put my skills to the test. I''ll be working on a variety of projects and I''m looking forward to learning from my colleagues. #webdevelopment #newjob'),
+  (7, 'I just finished a book called "The Power of Habit" and it was a great read. The book explores how habits are formed and how they can be changed. I''m excited to apply what I''ve learned to my own habits. #habits #selfimprovement'),
+  (1, 'I just finished a course on digital marketing and I''m excited to start implementing what I''ve learned. I learned about SEO, social media marketing, and email marketing. I''m looking forward to seeing the results of my efforts. #digitalmarketing #seo'),
+  (4, 'Attended a finance seminar and gained valuable insights into managing my investments and saving for the future.'),
+  (5, 'Listened to an inspiring podcast about entrepreneurship. Feeling motivated to pursue my business ideas.');
 
 INSERT INTO comments (description, userprofile_id, post_id )
 VALUES 
-('This is awesome', 1, 1),
-('This is so cool', 2, 1),
-('This is awesome', 3, 3),
-('This is awesome', 4, 4),
-('This is awesome', 5, 5);
+('Great choice! I''ve heard amazing things about that course.', 2, 1),
+('Wow, what an achievement! Congratulations!', 1, 2),
+('I''m interested in attending one. Any recommendations?', 5, 3),
+('That''s impressive! Any tips for beginners?', 3, 4),
+('I loved that book too! Have you read his other works?', 4, 5),
+('Congrats on the new job! Wishing you success in your new role.', 2, 6),
+('The Power of Habit is a game-changer. How are you applying it to your life?', 3, 7),
+('Digital marketing is fascinating! What aspect did you find most intriguing?', 5, 8),
+('Sounds enlightening! Any key takeaways you''d like to share?', 4, 9),
+('Entrepreneurship is a journey. What''s your business idea?', 1, 10);
 
 INSERT INTO likes (userprofile_id, post_id )
 VALUES 
