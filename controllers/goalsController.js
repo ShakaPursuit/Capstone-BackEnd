@@ -1,4 +1,3 @@
-// Import express
 const express = require("express");
 // Create an instance of a Router
 const goals = express.Router({ mergeParams: true });
@@ -9,7 +8,8 @@ const {
   createGoal,
   updateGoal,
   deleteGoal,
-  markGoalAsCompleted
+  markGoalAsCompleted,
+  addProgress
 } = require("../queries/goals");
 
 const { checkGoals, checkTargets } = require("../validations/checkGoals");
@@ -97,7 +97,7 @@ goals.delete("/:id", authenticateToken, async (req, res) => {
     res.status(404).json({ error: "error" });
   }
 });
-goals.patch("/:id", async (req, res) => {
+goals.patch("/:id/complete", async (req, res) => {
   const { id } = req.params;
 
   try {
@@ -105,6 +105,17 @@ goals.patch("/:id", async (req, res) => {
     res.json({ updateResult,message: "Goal status updated successfully" });
   } catch (error) {
     res.status(500).json({ error: "Failed to update goal status" });
+  }
+});
+
+goals.patch("/:id/progress", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const updatedGoal = await addProgress(id, 25);
+    res.json({ updatedGoal, message: "Goal progress updated successfully" });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to update goal progress" });
   }
 });
 

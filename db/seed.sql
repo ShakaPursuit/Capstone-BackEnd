@@ -30,21 +30,19 @@ VALUES
     ('Art'),
     ('Music');
 
-
 INSERT INTO goals
-    (name, description, completed, target_date, created_at, userprofile_id, interest_id )
+    (name, description, completed, target_date, created_at, userprofile_id, interest_id, progress )
 VALUES
-    ('Learn Web Development', 'Complete a web development course', false, '2024-12-31', CURRENT_TIMESTAMP, 1, 1),
-    ('Hike a Mountain', 'Reach the summit of a challenging mountain', true, '2024-08-15', CURRENT_TIMESTAMP, 2, 2),
-    ('Start a Photography Blog', 'Share photography experiences and tips', true, '2024-10-01', CURRENT_TIMESTAMP, 1, 3),
-    ('Indoor Food Gardening', 'Grow vegetables and herbs in my apartment', false, '2024-9-01', CURRENT_TIMESTAMP, 4, 4),
-    ('Lose Excess Skin', 'Tighten up the extra skin around my arms and legs', true, '2024-8-21', CURRENT_TIMESTAMP, 3, 6),
-    ('Learn Blockchain', 'Learn the fundamental basics of bitcoin and blockchain technology', false, '2024-7-5', CURRENT_TIMESTAMP, 3, 9),
-    ('Gardening for dummies course', 'They offer a class at the local lgbt center', false,  '2024-8-24', CURRENT_TIMESTAMP, 1, 4),
-    ('Weed our community garden', 'I need to try to weed our garden at least once a week this Spring', true, '2024-9-19', CURRENT_TIMESTAMP, 2, 4),
-    ('Learn Python', 'I''m trying to learn Python for an upcoming project at work', true, '2024-6-5', CURRENT_TIMESTAMP, 4, 1),
-    ('SQL Course', 'Need to freshen up my sql skills for a job interview', false, '2024-5-28', CURRENT_TIMESTAMP, 2, 1);
-
+    ('Learn Web Development', 'Complete a web development course', false, '2024-12-31', CURRENT_TIMESTAMP, 1, 1, 0),
+    ('Hike a Mountain', 'Reach the summit of a challenging mountain', true, '2024-08-15', CURRENT_TIMESTAMP, 2, 2, 0),
+    ('Start a Photography Blog', 'Share photography experiences and tips', true, '2024-10-01', CURRENT_TIMESTAMP, 1, 3, 0),
+    ('Indoor Food Gardening', 'Grow vegetables and herbs in my apartment', false, '2024-9-01', CURRENT_TIMESTAMP, 4, 4, 0),
+    ('Lose Excess Skin', 'Tighten up the extra skin around my arms and legs', true, '2024-8-21', CURRENT_TIMESTAMP, 3, 6, 0),
+    ('Learn Blockchain', 'Learn the fundamental basics of bitcoin and blockchain technology', false, '2024-7-5', CURRENT_TIMESTAMP, 3, 9, 0),
+    ('Gardening for dummies course', 'They offer a class at the local lgbt center', false,  '2024-8-24', CURRENT_TIMESTAMP, 1, 4, 0),
+    ('Weed our community garden', 'I need to try to weed our garden at least once a week this Spring', true, '2024-9-19', CURRENT_TIMESTAMP, 2, 4 ,0),
+    ('Learn Python', 'I''m trying to learn Python for an upcoming project at work', true, '2024-6-5', CURRENT_TIMESTAMP, 4, 1, 0),
+    ('SQL Course', 'Need to freshen up my sql skills for a job interview', false, '2024-5-28', CURRENT_TIMESTAMP, 2, 1, 0);
 INSERT INTO interest_connections
     (userprofile_id, interest_id)
 VALUES
@@ -55,7 +53,7 @@ VALUES
     (3, 3),
     (3, 6),
     (4, 1),
-    (4, 4),
+    (4, 4);
 
 
 INSERT INTO connection_requests
