@@ -33,7 +33,8 @@ CREATE TABLE goals
     target_date DATE NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     userprofile_id INTEGER REFERENCES user_profiles(userprofile_id) ON DELETE CASCADE,
-    interest_id INTEGER REFERENCES interests(interest_id)
+    interest_id INTEGER REFERENCES interests(interest_id),
+    progress INTEGER DEFAULT 0
 );
 
 CREATE TABLE interest_connections

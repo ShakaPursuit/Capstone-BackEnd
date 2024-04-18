@@ -29,11 +29,11 @@ const getGoal = async (id, userprofile_id) => {
 
 const createGoal = async (goal) => {
   try {
-    const { name, description, completed, target_date, userprofile_id, interest_id } =
+    const { name, description, completed, target_date, userprofile_id, interest_id ,progress} =
       goal;
     const newGoal = await db.one(
-      "INSERT INTO goals (name, description, completed, target_date, created_at, userprofile_id, interest_id) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *",
-      [name, description, completed, target_date, new Date(), userprofile_id, interest_id]
+      "INSERT INTO goals (name, description, completed, target_date, created_at, userprofile_id, interest_id ,progress) VALUES ($1, $2, $3, $4, $5, $6, $7,$8) RETURNING *",
+      [name, description, completed, target_date, new Date(), userprofile_id, interest_id,progress]
     );
     return newGoal;
   } catch (error) {
@@ -43,10 +43,10 @@ const createGoal = async (goal) => {
 
 const updateGoal = async (id, goal) => {
   try {
-    const { name, description, completed, target_date, userprofile_id } = goal;
+    const { name, description, completed, target_date, userprofile_id,progress } = goal;
     const updatedGoal = await db.one(
-      "UPDATE goals SET name=$1, description=$2, completed=$3, target_date=$4, created_at=$5, userprofile_id=$6 WHERE goal_id=$7 RETURNING *",
-      [name, description, completed, target_date, new Date(), userprofile_id, id]
+      "UPDATE goals SET name=$1, description=$2, completed=$3, target_date=$4, created_at=$5, userprofile_id=$6, progress=$7 WHERE goal_id=$8 RETURNING *",
+      [name, description, completed, target_date, new Date(), userprofile_id, progress, id]
     );
     return updatedGoal;
   } catch (error) {
@@ -78,5 +78,16 @@ const deleteGoal = async (id) => {
     return error;
   }
 };
+const addProgress = async (id, progress) => {
+  try {
+    const updatedGoal = await db.one(
+      "UPDATE goals SET progress = $1 WHERE goal_id = $2 RETURNING *",
+      [progress, id]
+    );
+    return updatedGoal;
+  } catch (error) {
+    return error;
+  }
+};
 
-module.exports = { getGoals, getGoal, createGoal, updateGoal, deleteGoal, markGoalAsCompleted };
+module.exports = { getGoals, getGoal, createGoal, updateGoal, deleteGoal, markGoalAsCompleted,addProgress };
