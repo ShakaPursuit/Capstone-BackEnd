@@ -24,12 +24,7 @@ goals.get("/", authenticateToken, async (req, res) => {
     // console.log(req.params)
     // console.log("user profile id",userprofile_id);
     // console.log(req.user);
-    
-    if (userprofile_id !== req.user.userId.toString()) {
-      return res
-        .status(403)
-        .json({ error: "Forbidden - You can only acess your own goals" });
-    }
+  
     const goals = await getGoals(userprofile_id);
     console.log(goals);
     res.status(200).json(goals);
